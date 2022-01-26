@@ -18,3 +18,30 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Introduction
 
 Consider this my personal guide to the commands and functions you will learn. In general, when you come across an R command or function that you want to remember, put it in here along with a description of what it does and when you'd use it.
+
+install.packages() - to install packages
+install.packages('tidyverse') - to install all of tidyverse at once
+install.packages('rmarkdown') - to install R markdown
+
+readr - library that reads different types of data (csv)
+library(readr)
+dplyr - analyzes that data
+library(dplyr)
+'package:stats' - filter, lag
+'package:base' - intersect, setdiff, setequal, union
+shortcut - library(tidyverse)
+
+to import data: ppp_maryland_loans <- read_rds("ppp_maryland.rds")
+
+%>% - "and then do this"
+data %>% function - take data set and then do this specific action to it
+
+n() - counts the number of rows or records in each group
+arrange() - arranges data in order (default - ascending)
+arrange(desc()) - descending order
+sum() - add up
+sum(amount) - add up values to a new column 'amount'
+mean() - find the mean
+median() - find the median
+min() - lowest value
+max() - highest value
