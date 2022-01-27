@@ -22,6 +22,8 @@ Consider this my personal guide to the commands and functions you will learn. In
 to set working directory: more --> set as working directory
 desired working directory must be open
 
+to run code --> the green play button in the top right corner of the gray code box
+
 install.packages() - to install packages
 install.packages('tidyverse') - to install all of tidyverse at once
 install.packages('rmarkdown') - to install R markdown
