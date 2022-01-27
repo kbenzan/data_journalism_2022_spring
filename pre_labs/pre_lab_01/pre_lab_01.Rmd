@@ -205,7 +205,7 @@ ppp_maryland_loans %>%
   arrange(desc(max_loan_amount))
 ```
 Which is the max loan amount in Anne Arundel County?  Put your answer in the space below.
-**Answer**
+**Answer** 10,000,000
 
 ### Task 12
 
