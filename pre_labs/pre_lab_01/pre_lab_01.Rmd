@@ -103,7 +103,9 @@ glimpse(ppp_maryland_loans)
 ```
 
 In the space below, write the data type for the "name" column and the "amount" column (it's in light gray, offset by < >).  Also offer your best guess as to what the "name" column and the "amount" column represent.
-**Answer**
+**Answer** 
+name - character 
+amount - numeric
 
 ### Task 4: Examine data "head"
 **Task** Run the following codeblock to use head() to examine the first six rows of data. Explore the data by clicking the black arrow on the right side of the output table, allowing you to examine additional columns.
@@ -111,7 +113,7 @@ In the space below, write the data type for the "name" column and the "amount" c
 head(ppp_maryland_loans)
 ```
 In the space below, write the name of the business from the first row of the "name" column.
-**Answer**
+**Answer** Tarbiyah Academy Inc.
 
 ### Task 5: Explore data with interactive dataframe
 **Task** look at the environment window at right in RStudio for ppp_maryland_loans. It's next to a small blue circle with a white arrow in it. Click on the ppp_maryland_loans -- not the blue circle. It will open the dataframe as an interactive table.  Scroll down to see additional rows.  Scroll left to see additional columns. Click on a column name to sort by that column.
@@ -127,7 +129,7 @@ ppp_maryland_loans %>%
   )
 ```
 How many loans does Anne Arundel County have?  Put your answer in the space below.
-**Answer**
+**Answer** 17,336 loans
 
 ### Task 7
 **Task** Run the following codeblock to group the ppp_maryland_loans dataframe by the county for each loan, count the number of loans in that group, and then sort so the county with the highest number of loans is listed first.
@@ -140,7 +142,7 @@ ppp_maryland_loans %>%
   arrange(desc(count_loans))
 ```
 Which county has the most loans?  Put your answer in the space below.
-**Answer**
+**Answer** Montgomery County
 
 ### Task 8
 **Task** Run the following codeblock to group the ppp_maryland_loans dataframe by county and race, then count the number of loans in that group, and then sort from A-Z by county and then by race.

@@ -50,3 +50,6 @@ mean() - find the mean
 median() - find the median
 min() - lowest value
 max() - highest value
+
+head() - the first six rows in dataset 
+What can I expect from this dataset?
