@@ -53,3 +53,12 @@ max() - highest value
 
 head() - the first six rows in dataset 
 What can I expect from this dataset?
+
+To summarize data: 
+```{r}
+ppp_maryland_loans %>%
+  group_by(project_county_name) %>%
+  summarise(
+    
+  )
+```
