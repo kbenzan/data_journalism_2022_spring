@@ -62,3 +62,13 @@ ppp_maryland_loans %>%
     
   )
 ```
+
+Then to organize summarized data:
+```{r}
+ppp_maryland_loans %>%
+  group_by(project_county_name) %>%
+  summarise(
+    
+  ) %>%
+  arrange(desc(count_loans))
+```
