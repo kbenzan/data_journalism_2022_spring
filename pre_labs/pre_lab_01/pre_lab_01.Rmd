@@ -216,4 +216,5 @@ ppp_maryland_loans %>%
 ```
 
 How many companies got $10 million loans? One of them is a restaurant chain.  What kind of food do they serve? Put your answers in the space below.
-**Answer** Five companies received $10 million loans. Mission BBQ Management, LLC - one of the five companies - serve American food, such as 
+**Answer** Five companies received $10 million loans. Mission BBQ Management, LLC - one of the five companies - serve American food, such as ribs, cole slaw and cornbread.
+
