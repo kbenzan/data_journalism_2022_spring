@@ -87,7 +87,7 @@ wv_ppp_loans %>%
   arrange(count_loans)
 ```
 **Q4** What's your best educated guess to explain why the county identified in question 2 had a lot of loans and why the county identified in question 3 had only a few loans? Hint: you won't find the answer in the data, you'll need to do some quick web research. You do not need to write any code for this question, so no codeblock is provided.  
-**A4** [write your answer here]
+**A4** Kanawha County houses the capital of West Virginia, Charleston. Charleston houses many businesses that could potentially ask for ppp loans. Kanawha County is also the most populous county which may explain the number of loans. With more people, there can be more requests for loans. On the other hand, Palm Beach County 
 
 
 **Q5** What West Virginia business got the state's largest PPP loan? How much was it for? What does the business do? How many jobs did the loan retain, according to the data?
