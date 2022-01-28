@@ -25,6 +25,11 @@ Remember to add any new verbs or concepts to your reference notebook!
 
 ## Load libraries and establish settings
 
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
 **Task** Run the codeblock below to load the Tidyverse. To run the codeblock, hit the little green play button in the upper right corner of the gray area (the codeblock) below.
 
 ```{r}
@@ -47,7 +52,7 @@ wv_ppp_loans <- read_rds("lab_01.rds")
 
 **Task** Run the codeblock below to use glimpse to get a sense of the column names, types and sample data.
 **Q1** How many rows and columns does this dataframe have?
-**A1** [write your answer here]
+**A1** Rows: 33,336; Columns: 58
 
 ```{r}
 glimpse(wv_ppp_loans)
@@ -58,18 +63,28 @@ glimpse(wv_ppp_loans)
 Use the pre-lab and your reference notebook as examples.
 
 **Q2** Which West Virginia county got the most loans? How many?
-**A2** [write your answer here]
+**A2** Kanawha County recorded 4,273 loans.
 
 ```{r}
 # Write the code to produce your answer here
-
+wv_ppp_loans %>%
+  group_by(project_county_name) %>%
+  summarise(
+    count_loans = n()
+  ) %>%
+  arrange(desc(count_loans))
 ```
 **Q3** Which West Virginia county got the fewest loans? How many?
-**A3** [write your answer here]
+**A3** Palm Beach County recorded 2 loans.
 
 ```{r}
 # Write the code to produce your answer here
-
+wv_ppp_loans %>%
+  group_by(project_county_name) %>%
+  summarise(
+    count_loans = n()
+  ) %>%
+  arrange(count_loans)
 ```
 **Q4** What's your best educated guess to explain why the county identified in question 2 had a lot of loans and why the county identified in question 3 had only a few loans? Hint: you won't find the answer in the data, you'll need to do some quick web research. You do not need to write any code for this question, so no codeblock is provided.  
 **A4** [write your answer here]
