@@ -75,7 +75,7 @@ wv_ppp_loans %>%
   arrange(desc(count_loans))
 ```
 **Q3** Which West Virginia county got the fewest loans? How many?
-**A3** Palm Beach County recorded 2 loans.
+**A3** Wirt County recorded the fewest loans in West Virginia, although a Florida county and a Maryland county both recorded fewer loans. Wirt recorded 36 loans. 
 
 ```{r}
 # Write the code to produce your answer here
@@ -87,7 +87,7 @@ wv_ppp_loans %>%
   arrange(count_loans)
 ```
 **Q4** What's your best educated guess to explain why the county identified in question 2 had a lot of loans and why the county identified in question 3 had only a few loans? Hint: you won't find the answer in the data, you'll need to do some quick web research. You do not need to write any code for this question, so no codeblock is provided.  
-**A4** Kanawha County houses the capital of West Virginia, Charleston. Charleston houses many businesses that could potentially ask for ppp loans. Kanawha County is also the most populous county which may explain the number of loans. With more people, there can be more requests for loans. On the other hand, Palm Beach 
+**A4** Kanawha County houses the capital of West Virginia, Charleston. Charleston houses many businesses that could potentially ask for ppp loans. Kanawha County is also the most populous county which may explain the number of loans. With more people, there can be more requests for loans. On the other hand, Wirt County is the county with the least amount of people - approximately 5,000. It's so small that the entire county only contains one high school. Therefore, it makes sense why Wirt County would record the fewest number of PPP loans.
 
 
 **Q5** What West Virginia business got the state's largest PPP loan? How much was it for? What does the business do? How many jobs did the loan retain, according to the data?
@@ -121,7 +121,7 @@ wv_ppp_loans %>%
 
 Store it as a variable object called `wv_summary` so that you can examine it with the data viewer. What newsworthy nuggets jump out at you that you could imagine dropping into a news story? Write a few summary sentences with overall findings.
 
-**A7** [write your answer here]
+**A7** What jumps right out to me is the maximum loan amount ($8,912,202). It's quite high, but not an even $10,000,000 - like we've seen before. Then, what also is surprising to me is the median loan amount. The median is $20,832. About $20,000 seems high to me for a mostly agricultural state. Then finally the total loan amount ($2,600,771,578) seems exceptionally high. For just about 30,000 loans, over two billion dollars appears to be a lot. That number signals to me that even though there aren't too many loans, the loans themselves are a lot. Then, I understand why the median loan amount also seems so high.
 ```{r}
 # Write the code to produce your answer here
 wv_summary <- wv_ppp_loans %>%
