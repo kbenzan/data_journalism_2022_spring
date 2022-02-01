@@ -216,7 +216,7 @@ maryland_ppp_sample <- read_csv('data/ppp_maryland.csv')
 glimpse(maryland_ppp_sample)
 ```
 What is the datatype for `date_approved` (it's just to the right of the column name)? Put your answer in the space below.
-**Answer**
+**Answer** The datatype for 'date_approved' is date.
 
 ### Task 16: Use mutate and lubridate to add a column called `Month` and see which month had the most applications.
 **Task** Run the following code to create a new column based on `date_approved`. Add a description of what this code does to your reference notebook.
@@ -229,4 +229,4 @@ maryland_ppp %>%
   arrange(desc(total))
 ```
 What month saw the most applications and how many? Put your answer in the space below.
-**Answer**
+**Answer** April 2020 saw the most application - 45,042 applications.

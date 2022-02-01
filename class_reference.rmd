@@ -153,3 +153,12 @@ nrow(or_prince_georges)
 ```
 
 read.csv
+
+to create a new column called month
+```{r}
+maryland_ppp %>%
+  mutate(Month = floor_date(date_approved, "month")) %>%
+  group_by(Month) %>%
+  summarise(total = n()) %>%
+  arrange(desc(total))
+```
