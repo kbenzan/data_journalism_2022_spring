@@ -84,3 +84,4 @@ mutate -
 filering - 
 dates -
 str_to_upper(name) - make all uppercase
+select(name) - show me
