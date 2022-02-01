@@ -81,7 +81,7 @@ mutate -
   mutate(new_column = value)
   mutate(percent_payroll = payroll_proceed/amount)
   mutate(name = "Katie Benzan") - change an existing column's name
-filering  
+filtering  
 dates 
 str_to_upper(name) - make all uppercase
 select(name) - show me
