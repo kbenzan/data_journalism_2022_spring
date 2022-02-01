@@ -205,7 +205,7 @@ glimpse(lubridate_maryland_ppp)
 ```
 What is the datatype for `date_approved` (it's just to the right of the column name)? What is the datatype for `CleanDate`?
 Put your answers in the space below.
-**Answer** date_app
+**Answer** The datatype for date_approved is character and the datatype for CleanDate is date-time.
 
 
 ### Task 15: Load data using read_csv
