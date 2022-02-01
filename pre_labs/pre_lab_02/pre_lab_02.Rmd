@@ -107,6 +107,10 @@ maryland_with_in_out <- maryland_ppp %>%
         servicing_lender_state == 'MD', "IN", "OUT"
       )
   )
+
+maryland_with_in_out %>%
+  group_by(in_out)%>%
+  summarise(count = n())
 ```
 
 ### Task 9: Create a new column using case_when
