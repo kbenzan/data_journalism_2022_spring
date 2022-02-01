@@ -118,3 +118,38 @@ maryland_with_in_out <- maryland_ppp %>%
 == - test of equivalence
 
 case_when
+```{r}
+# case_when example
+maryland_jobs_categories <- maryland_ppp %>%
+mutate(
+  jobs_retained_category = case_when(
+    jobs_retained < 10 ~ 'under_10',
+    jobs_retained >= 10 & jobs_retained < 25 ~ '10_to_25',
+    jobs_retained >= 25 & jobs_retained < 50 ~ '25_to_50',
+    jobs_retained >= 50 & jobs_retained < 100 ~ '50_to_100',
+    jobs_retained >= 100 & jobs_retained < 250 ~ '100_to_250',
+    jobs_retained >= 250 & jobs_retained < 500 ~ '250_to_500',
+    jobs_retained == 500 ~ '500'
+  )
+)
+```
+
+filters
+```{r}
+prince_georges <- maryland_ppp %>% filter(project_county_name == "PRINCE GEORGES")
+head(prince_georges)
+```
+AND
+```{r}
+and_prince_georges <- maryland_ppp %>% filter(project_county_name == "PRINCE GEORGES" & business_type == "Non-Profit Organization" & amount > 150000)
+
+nrow(and_prince_georges)
+```
+OR
+```{r}
+or_prince_georges <- maryland_ppp %>% filter(project_county_name == "PRINCE GEORGES" | business_type == "Non-Profit Organization" | amount > 150000)
+
+nrow(or_prince_georges)
+```
+
+read.csv
