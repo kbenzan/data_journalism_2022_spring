@@ -83,3 +83,4 @@ mutate -
   mutate(name = "Katie Benzan") - change an existing column's name
 filering - 
 dates -
+str_to_upper(name) - make all uppercase
