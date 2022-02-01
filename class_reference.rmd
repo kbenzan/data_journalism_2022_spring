@@ -76,6 +76,7 @@ ppp_maryland_loans %>%
 
 # - comment something (won't run code)
 
+lubridate - makes it easier to work with date-times in R
 mutate - 
 filering - 
 dates -
