@@ -85,3 +85,21 @@ filering -
 dates -
 str_to_upper(name) - make all uppercase
 select(name) - show me
+
+to order by descending:
+```{r}
+maryland_ppp %>%
+  select(loan_number, amount, payroll_proceed) %>%
+  mutate(
+  percent_payroll = (payroll_proceed/amount)*100
+)  %>% arrange(desc(percent_payroll))
+```
+
+order ascending percent_payroll for the largest amount:
+```{r}
+maryland_ppp %>%
+  select(loan_number, amount, payroll_proceed) %>%
+  mutate(
+  percent_payroll = (payroll_proceed/amount)*100
+)  %>% arrange(percent_payroll, desc(amount))
+```

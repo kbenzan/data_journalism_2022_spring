@@ -76,7 +76,7 @@ maryland_ppp %>%
 )  %>% arrange(desc(percent_payroll))
 ```
 What is the payroll proceeds percentage for the first result? Put your answer in the space below.
-**Answer**
+**Answer** 100%
 
 
 ### Task 7: Mutate with ordering, part 2
@@ -91,7 +91,7 @@ maryland_ppp %>%
 )  %>% arrange(percent_payroll, desc(amount))
 ```
 What is the payroll proceeds percentage for the first result? Put your answer in the space below.
-**Answer**
+**Answer** 0
 
 
 ### Task 8: Create a new column using if/else
