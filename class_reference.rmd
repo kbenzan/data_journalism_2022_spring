@@ -80,5 +80,6 @@ lubridate library - makes it easier to work with date-times in R
 mutate - 
   mutate(new_column = value)
   mutate(percent_payroll = payroll_proceed/amount)
+  mutate(name = "Katie Benzan")
 filering - 
 dates -
