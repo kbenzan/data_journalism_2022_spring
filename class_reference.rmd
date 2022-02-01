@@ -43,6 +43,7 @@ data %>% function - take data set and then do this specific action to it
 
 n() - counts the number of rows or records in each group
 arrange() - arranges data in order (default - ascending)
+  - how you want to see the data
 arrange(desc()) - descending order
 sum() - add up
 sum(amount) - add up values to a new column 'amount'
