@@ -103,3 +103,16 @@ maryland_ppp %>%
   percent_payroll = (payroll_proceed/amount)*100
 )  %>% arrange(percent_payroll, desc(amount))
 ```
+
+if_else - binary answer
+  i.e. in Maryland or out of Maryland?
+```{r}
+# if/else example
+maryland_with_in_out <- maryland_ppp %>%
+  mutate(
+    in_out = if_else(
+        servicing_lender_state == 'MD', "IN", "OUT"
+      )
+  )
+```
+== - test of equivalence
