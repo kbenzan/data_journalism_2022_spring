@@ -81,8 +81,8 @@ mutate -
   mutate(new_column = value)
   mutate(percent_payroll = payroll_proceed/amount)
   mutate(name = "Katie Benzan") - change an existing column's name
-filering - 
-dates -
+filering  
+dates 
 str_to_upper(name) - make all uppercase
 select(name) - show me
 
@@ -116,3 +116,5 @@ maryland_with_in_out <- maryland_ppp %>%
   )
 ```
 == - test of equivalence
+
+case_when
