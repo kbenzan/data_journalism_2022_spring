@@ -48,7 +48,7 @@ west_virginia_ppp <- read_rds("data/lab_02.rds")
 
 **Q1** Create a new column that divides the loan amounts into the following options - under_10k, 10k_50k, 50k_100k, 100k_500k, 500k_1m, 1m_plus - and calculates how many loans are in each group. How would you describe the distribution of loans in a sentence?
 Hint: You will need to use `case_when` to make this work.
-**A1** The majority of loans were between $10,000 and $50,000, whereas the fewest loans were $1,000,000 or more. The group ranging from $10,000 to $50,000 was almost three times larger than the next largest group, which is ranging from $50,000 to $100,000. 
+**A1** The majority of loans were between $10,000 and $50,000, whereas the fewest loans were $1,000,000 or more. The group ranging from $10,000 to $50,000 was almost 33% larger than the next largest group, which is $10,000. 
 
 ```{r}
 # Write the code to produce your answer here
@@ -70,7 +70,7 @@ west_va_categories %>%
 ```
 
 **Q2** Some of the loans appear not to have been paid out - there is a column representing the amount of money that hasn't been disbursed to the applicant. Which servicing lenders have the most loans with undisbursed amounts greater than 0?
-**A2** Davis Trust Company
+**A2** Davis Trust Company had the most loans with undisbursed amounts greater than 0. 
 
 ```{r}
 # Write the code to produce your answer here
@@ -84,7 +84,7 @@ arrange(desc(count))
 ```
 
 **Q3** What are some potential reasons why a loan might not be paid out? What questions does that circumstance raise for you?
-**A3** A loan might not be paid out because their income may not have increased or stabilized as predicted. 
+**A3** A loan might not be paid out because their income may not have increased or stabilized as predicted. It also may seem that a bank may be more willing to lend out money to riskier companies than other banks. By the data above, it appears as though Davis Trust Company was willing to lend money to companies unable to pay back their loans. 
 
 
 **Q4** Which month in 2021 had the most loans approved?
@@ -102,7 +102,7 @@ west_virginia_ppp %>%
 ```
 
 **Q5** How many loans went to West Virginia applicants that listed the maximum number of jobs retained (500)? Which one had the earliest approved date?
-**A5** 10; J. AUSTIN HEATING & COOLING, INC.
+**A5** 10 loans went to West Virginia applicants with 500 jobs retained. J. AUSTIN HEATING & COOLING, INC. had the earliest approved date - April 8, 2020.
 
 ```{r}
 # Write the code to produce your answer here
