@@ -55,7 +55,7 @@ Hint: You will need to use `case_when` to make this work.
 west_va_categories <- west_virginia_ppp %>%
 mutate(
   loan_amounts_category = case_when(
-    amount < 10 ~ 'under_10k',
+    amount < 10000 ~ 'under_10k',
     amount >= 10000 & amount < 50000 ~ '10k_50k',
     amount >= 50000 & amount < 100000 ~ '50k_100k',
     amount >= 100000 & amount < 500000 ~ '100k_500k',
@@ -70,16 +70,17 @@ west_va_categories %>%
 ```
 
 **Q2** Some of the loans appear not to have been paid out - there is a column representing the amount of money that hasn't been disbursed to the applicant. Which servicing lenders have the most loans with undisbursed amounts greater than 0?
-**A2** [write your answer here]
+**A2** Davis Trust Company
 
 ```{r}
 # Write the code to produce your answer here
 west_virginia_ppp %>%
-  group_by(undisbursed_amount)
+  filter(undisbursed_amount > 0) %>%
+  group_by(servicing_lender_name) %>% 
   summarise(
     count = n()
     ) %>%
-arrange(desc(count_loans))
+arrange(desc(count))
 ```
 
 **Q3** What are some potential reasons why a loan might not be paid out? What questions does that circumstance raise for you?
