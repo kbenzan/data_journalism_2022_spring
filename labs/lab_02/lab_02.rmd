@@ -88,27 +88,25 @@ arrange(desc(count))
 
 
 **Q4** Which month in 2021 had the most loans approved?
-**A4** [write your answer here]
+**A4** March 2021
 
 ```{r}
 # Write the code to produce your answer here
 west_virginia_ppp %>%
-  mutate(
-    in_out = if_else(
-      date_approved = '2021', "IN", "OUT"
-    )
-  )
+  filter(date_approved > '2020-12-31') %>% 
+  mutate(Month = floor_date(date_approved, "month")) %>%
+  group_by(Month) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
   
 ```
 
 **Q5** How many loans went to West Virginia applicants that listed the maximum number of jobs retained (500)? Which one had the earliest approved date?
-**A5** [write your answer here]
+**A5** 10; J. AUSTIN HEATING & COOLING, INC.
 
 ```{r}
 # Write the code to produce your answer here
 west_virginia_ppp %>%
-  group_by(jobs_retained) %>%
-  summarise(
-    count
-  )
+  filter(jobs_retained == 500) %>% 
+  arrange(date_approved)
 ```
