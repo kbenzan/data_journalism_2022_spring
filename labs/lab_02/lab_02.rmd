@@ -74,7 +74,12 @@ west_va_categories %>%
 
 ```{r}
 # Write the code to produce your answer here
-
+west_virginia_ppp %>%
+  group_by(undisbursed_amount)
+  summarise(
+    count = n()
+    ) %>%
+arrange(desc(count_loans))
 ```
 
 **Q3** What are some potential reasons why a loan might not be paid out? What questions does that circumstance raise for you?
@@ -86,12 +91,13 @@ west_va_categories %>%
 
 ```{r}
 # Write the code to produce your answer here
-loans_by_month <- west_virginia_ppp %>%
-  group_by(date_approved) %>%
-  summarise(
-    count_loans = n()
-  ) %>%
-  arrange(desc(count_loans))
+west_virginia_ppp %>%
+  mutate(
+    in_out = if_else(
+      date_approved = '2021', "IN", "OUT"
+    )
+  )
+  
 ```
 
 **Q5** How many loans went to West Virginia applicants that listed the maximum number of jobs retained (500)? Which one had the earliest approved date?
@@ -99,5 +105,9 @@ loans_by_month <- west_virginia_ppp %>%
 
 ```{r}
 # Write the code to produce your answer here
-
+west_virginia_ppp %>%
+  group_by(jobs_retained) %>%
+  summarise(
+    count
+  )
 ```
