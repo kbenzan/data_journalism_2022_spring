@@ -52,7 +52,21 @@ Hint: You will need to use `case_when` to make this work.
 
 ```{r}
 # Write the code to produce your answer here
+west_va_categories <- west_virginia_ppp %>%
+mutate(
+  loan_amounts_category = case_when(
+    amount < 10 ~ 'under_10k',
+    amount >= 10000 & amount < 50000 ~ '10k_50k',
+    amount >= 50000 & amount < 100000 ~ '50k_100k',
+    amount >= 100000 & amount < 500000 ~ '100k_500k',
+    amount >= 500000 & amount < 1000000 ~ '500k_1m',
+    amount >= 1000000 ~ '1m_plus'
+  )
+)
 
+west_va_categories %>%
+  group_by(loan_amounts_category) %>%
+  summarise(count = n())
 ```
 
 **Q2** Some of the loans appear not to have been paid out - there is a column representing the amount of money that hasn't been disbursed to the applicant. Which servicing lenders have the most loans with undisbursed amounts greater than 0?
@@ -64,7 +78,7 @@ Hint: You will need to use `case_when` to make this work.
 ```
 
 **Q3** What are some potential reasons why a loan might not be paid out? What questions does that circumstance raise for you?
-**A3** [write your answer here]
+**A3** A loan might not be paid out because their income may not have increased or stabilized as predicted. 
 
 
 **Q4** Which month in 2021 had the most loans approved?
@@ -72,7 +86,12 @@ Hint: You will need to use `case_when` to make this work.
 
 ```{r}
 # Write the code to produce your answer here
-
+loans_by_month <- west_virginia_ppp %>%
+  group_by(date_approved) %>%
+  summarise(
+    count_loans = n()
+  ) %>%
+  arrange(desc(count_loans))
 ```
 
 **Q5** How many loans went to West Virginia applicants that listed the maximum number of jobs retained (500)? Which one had the earliest approved date?
