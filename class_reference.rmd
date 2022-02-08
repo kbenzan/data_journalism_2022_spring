@@ -141,13 +141,15 @@ head(prince_georges)
 ```
 AND
 ```{r}
-and_prince_georges <- maryland_ppp %>% filter(project_county_name == "PRINCE GEORGES" & business_type == "Non-Profit Organization" & amount > 150000)
+and_prince_georges <- maryland_ppp %>% 
+  filter(project_county_name == "PRINCE GEORGES" & business_type == "Non-Profit Organization" & amount > 150000)
 
 nrow(and_prince_georges)
 ```
 OR
 ```{r}
-or_prince_georges <- maryland_ppp %>% filter(project_county_name == "PRINCE GEORGES" | business_type == "Non-Profit Organization" | amount > 150000)
+or_prince_georges <- maryland_ppp %>% 
+  filter(project_county_name == "PRINCE GEORGES" | business_type == "Non-Profit Organization" | amount > 150000)
 
 nrow(or_prince_georges)
 ```
