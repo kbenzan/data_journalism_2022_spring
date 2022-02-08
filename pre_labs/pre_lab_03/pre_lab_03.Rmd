@@ -228,7 +228,7 @@ And let's examine the full data set.
 **Answer**
 
 ```{r}
-arnold_md_loans
+arnold_md_loans 
 ```
 
 ### Task 6: Use clean_names()
