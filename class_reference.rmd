@@ -221,3 +221,31 @@ cleaned_arnold_md_loans
 # standardizes the names of columns across the board
 # makes sure the column names are easily readable by R
 ```
+
+```{r}
+# cleaning function
+cleaned_arnold_md_loans <- arnold_md_loans %>%
+  clean_names() %>%
+  rename(id = x1_id)
+
+# renaming a column
+
+# display the cleaned dataset
+cleaned_arnold_md_loans
+
+
+```
+
+```{r}
+# cleaning function
+cleaned_arnold_md_loans <- arnold_md_loans %>%
+  clean_names() %>%
+  rename(id = x1_id) %>%
+  mutate(amount = as.numeric(amount))
+
+# changing column from character to numeric
+
+# display the cleaned dataset
+cleaned_arnold_md_loans
+
+```

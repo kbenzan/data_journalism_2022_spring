@@ -121,7 +121,7 @@ ppp_maryland_loans %>%
 
 ### Task 10: Examine forgiveness_date and forgiveness_amount together
 **Task** Run the following codeblock to group by forgiveness_date and forgiveness_amount, count the number of loans, then sort from highest to lowest on count and filter to only show NA values. How many loans are there where forgiveness_date and forgiveness_amount is NA? Is it the same as the number for forgiveness_amount and forgiveness_amount run separately in the codeblocks above? What can you conclude from Answer below.
-**Answer**: There are 135,073 loans where forgiveness_date and forgiveness_amount is NA. It is the same number as above. I can conclude that about 135,000 companies have had their loans forgiven. Loan forgiveness means you don't have to pay back all or some of loan. This conclusion also is sensical because if a company doesn't have a forgiveness amount, then they shouldn't have a forgiveness date. This codeblock demonstrated that they are the same records.
+**Answer**: There are 135,073 loans where forgiveness_date and forgiveness_amount is NA. It is the same number as above. I can conclude that about 135,000 companies have not had their loans forgiven. Loan forgiveness means you don't have to pay back all or some of loan. Thus, over 135,000 companies still owe money. This conclusion also is sensical because if a company doesn't have a forgiveness amount, then they shouldn't have a forgiveness date. This codeblock demonstrated that they are the same records.
 
 ```{r}
 ppp_maryland_loans %>%
@@ -225,7 +225,9 @@ And let's examine the full data set.
 
 ### Task 5: Examine the data table
 **Task** Run the following codeblock to examine the data. Name three problems the book chapter says exist in this data set that could prevent us from answering questions?  Answer below
-**Answer**
+**Answer** 1. The column headers are inconsistently styled (i.e. "1_id", "NAME" and "street address")
+2. The amount column is stored as a character, not a number.
+3. There's a row that appears twice in the dataset.
 
 ```{r}
 arnold_md_loans 
@@ -262,7 +264,11 @@ cleaned_arnold_md_loans
 
 ### Task 8: Try summarizing the amount column
 **Task** Run the following codeblock to attempt to add up the amount of all loans. What does the error say when you run this code? What do you think it means? Answer below.
-**Answer**
+**Answer** Error: Problem with `summarise()` column `total_amount`.
+ℹ `total_amount = sum(amount)`.
+x invalid 'type' (character) of argument
+
+It appears as though total_amount is stored as character and not numeric. Therefore, R cannot understand the code written to sum up total_amount as if it were numbers.
 
 ```{r}
 # cleaning function
@@ -276,7 +282,7 @@ total_arnold_md_loans
 ```
 ### Task 9: Change data type for amount
 **Task** Run the following codeblock to attempt to change the datatype for the amount field to a number. What is the new data type (three letter code) for amount? Answer below.
-**Answer**
+**Answer** <dbl> or numerical.
 
 ```{r}
 # cleaning function
@@ -292,7 +298,7 @@ cleaned_arnold_md_loans
 ```
 ### Task 10: Try again to summarize the amount column
 **Task** Run the following codeblock to add up the amount of all loans in this data.  What is the total? Answer below.
-**Answer**
+**Answer** 2,033,179
 ```{r}
 # cleaning function
 total_arnold_md_loans <- cleaned_arnold_md_loans %>%
@@ -306,7 +312,7 @@ total_arnold_md_loans
 
 ### Task 11: Check for duplicate rows
 **Task** Run the following codeblock to check for duplicate rows using get_dupes().  How many are there? What is the business name? Answer below.
-**Answer**
+**Answer** There are two duplicated rows under the business STUART JONES LLC.
 
 ```{r}
 cleaned_arnold_md_loans %>%
