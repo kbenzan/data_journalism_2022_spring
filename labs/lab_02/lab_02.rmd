@@ -85,6 +85,7 @@ arrange(desc(count))
 
 **Q3** What are some potential reasons why a loan might not be paid out? What questions does that circumstance raise for you?
 **A3** A loan might not be paid out because their income may not have increased or stabilized as predicted. It also may seem that a bank may be more willing to lend out money to riskier companies than other banks. By the data above, it appears as though Davis Trust Company was willing to lend money to companies unable to pay back their loans. 
+- something went wrong on the borrower's end OR the lender decided not to follow through b/c they don't trust
 
 
 **Q4** Which month in 2021 had the most loans approved?
