@@ -181,7 +181,7 @@ ppp_maryland_loans %>%
 
 ### Task 16: Look for internal consistency
 **Task** Run the following codeblock to examine all loans under $100 and look at whether the various fields with amounts align. Do they? Answer below.
-**Answer**
+**Answer** The selected columns do align. All columns in the row GETGFTD LLC read 6, and all columns in the row LEGACY SPINE AND PAIN LLC read 78. 
 
 ```{r}
 
@@ -208,7 +208,7 @@ library(janitor)
 
 ### Task 3: Load Arnold, Maryland demonstration data
 **Task** Run the following codeblock to load a demonstration slice of the data for Arnold, Maryland. How many rows are in this demonstration data set?
-**Answer**
+**Answer** 6 rows.
 
 ```{r}
 arnold_md_loans <- read_rds("arnold_md_loans.rds")
@@ -216,7 +216,7 @@ arnold_md_loans <- read_rds("arnold_md_loans.rds")
 
 ### Task 4: Examine the data with glimpse
 **Task** Run the following codeblock to glimpse the data.  What data type is the "amount" field? Answer below.
-**Answer**
+**Answer** Character
 ```{r}
 glimpse(arnold_md_loans)
 ```
@@ -233,7 +233,7 @@ arnold_md_loans
 
 ### Task 6: Use clean_names()
 **Task** Run the following codeblock to use the `clean_names()` function from janitor to standardize column names. How does the function change the name of the column "1_id"? Answer below. Add a description of what this code does to your reference notebook.
-**Answer**
+**Answer** x1_id is how the function changed the name of "1_id." 
 
 
 ```{r}

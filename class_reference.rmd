@@ -209,3 +209,15 @@ ppp_maryland_loans %>%
 # count  
 # sort by "month_year_approved"
 ```
+
+```{r}
+# cleaning function
+cleaned_arnold_md_loans <- arnold_md_loans %>%
+  clean_names()
+
+# display the cleaned dataset
+cleaned_arnold_md_loans
+
+# standardizes the names of columns across the board
+# makes sure the column names are easily readable by R
+```
