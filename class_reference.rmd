@@ -192,3 +192,20 @@ ppp_maryland_loans <- ppp_maryland_loans %>%
 # overriding the previous same dataset --> naming the same dataset with the same name (replacing it in its entirety)
 # as.date, as.numeric, etc.
 ```
+
+filter(is.na(forgiveness_date)) --> check to see if value is NA ... 
+
+```{r}
+ppp_maryland_loans %>%
+  mutate(month_year_approved = floor_date(date_approved, "month")) %>%
+  group_by(month_year_approved) %>%
+   summarise(
+    count=n()
+  ) %>%
+  arrange(month_year_approved)
+
+# to create a new column called "month_year_approved" that extracts the month and year from the "date_approved" column  
+# Group by the new "month_year_approved" column 
+# count  
+# sort by "month_year_approved"
+```
