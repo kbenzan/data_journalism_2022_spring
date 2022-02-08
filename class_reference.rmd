@@ -279,3 +279,43 @@ cleaned_arnold_md_loans <- arnold_md_loans %>%
 
 # display the cleaned dataset
 cleaned_arnold_md_loans
+```
+
+```{r}
+# cleaning function
+cleaned_arnold_md_loans <- arnold_md_loans %>%
+  clean_names() %>%
+  rename(id = x1_id) %>%
+  mutate(amount = as.numeric(amount)) %>%
+  distinct() %>%
+  mutate(zip = str_sub(zip, start=1L, end=5L)) %>%
+  mutate(city = str_to_title(city))
+
+# to standardize the name of the city
+
+# display the cleaned dataset
+cleaned_arnold_md_loans
+
+```
+
+```{r}
+# cleaning function
+cleaned_arnold_md_loans <- arnold_md_loans %>%
+  clean_names() %>%
+  rename(id = x1_id) %>%
+  mutate(amount = as.numeric(amount)) %>%
+  distinct() %>%
+  mutate(zip = str_sub(zip, start=1L, end=5L)) %>%
+  mutate(city = str_to_title(city)) %>%
+  mutate(city = case_when(
+    city == "Anold" ~ "Arnold",
+    str_detect(city,"^Arnl") ~ "Arnold",
+    TRUE ~ city
+  ))
+
+# TO CORRECT ALL MISSPELLINGS
+
+# display the cleaned dataset
+cleaned_arnold_md_loans
+
+```

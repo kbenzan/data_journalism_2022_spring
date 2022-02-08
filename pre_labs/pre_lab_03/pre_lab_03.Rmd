@@ -208,7 +208,7 @@ library(janitor)
 
 ### Task 3: Load Arnold, Maryland demonstration data
 **Task** Run the following codeblock to load a demonstration slice of the data for Arnold, Maryland. How many rows are in this demonstration data set?
-**Answer** 6 rows.
+**Answer** 6 rows are in this data set.
 
 ```{r}
 arnold_md_loans <- read_rds("arnold_md_loans.rds")
@@ -298,7 +298,7 @@ cleaned_arnold_md_loans
 ```
 ### Task 10: Try again to summarize the amount column
 **Task** Run the following codeblock to add up the amount of all loans in this data.  What is the total? Answer below.
-**Answer** 2,033,179
+**Answer** $2,033,179
 ```{r}
 # cleaning function
 total_arnold_md_loans <- cleaned_arnold_md_loans %>%
@@ -321,7 +321,7 @@ cleaned_arnold_md_loans %>%
 
 ### Task 12: Check for duplicate rows
 **Task** Run the following codeblock to use distinct() to get rid of duplicate rows. How many rows does the new dataframe have? Answer below. Add a description of what this code does to your reference notebook.
-**Answer** 5 rows now.
+**Answer** The new dataframe contains 5 rows now.
 
 ```{r}
 # cleaning function
@@ -358,7 +358,7 @@ cleaned_arnold_md_loans
 
 ### Task 14: Clean up city field
 **Task** Run the following codeblock to use str_tot_title() to standarize capitalization in the "city" field. How many mispellings of Arnold remain after running this code? Answer below. Add a description of what this code does to your reference notebook.
-**Answer** 
+**Answer** Two misspellings of Arnold are left.
 
 ```{r}
 # cleaning function
@@ -379,7 +379,7 @@ cleaned_arnold_md_loans
 
 ### Task 15: Clean up city field more with case_when()
 **Task** Run the following codeblock to use case_when() to fix misspellings of Arnold in the "city" field. How many mispellings of Arnold remain after running this code? Answer below.
-**Answer**
+**Answer** 1 misspelling remains after running this code.
 
 ```{r}
 # cleaning function
@@ -403,7 +403,7 @@ cleaned_arnold_md_loans
 
 ### Task 16: Clean up city field more with case_when()
 **Task** Run the following codeblock to use case_when() to fix misspellings of Arnold in the "city" field using both the exact match method and the str_detect() method. How many mispellings of Arnold remain after running this code? Answer below. Add a description of what this code does to your reference notebook.
-**Answer**
+**Answer** 0 misspellings appear in the tibble below.
 ```{r}
 # cleaning function
 cleaned_arnold_md_loans <- arnold_md_loans %>%
