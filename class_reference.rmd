@@ -249,3 +249,33 @@ cleaned_arnold_md_loans <- arnold_md_loans %>%
 cleaned_arnold_md_loans
 
 ```
+
+```{r}
+# cleaning function
+cleaned_arnold_md_loans <- arnold_md_loans %>%
+  clean_names() %>%
+  rename(id = x1_id) %>%
+  mutate(amount = as.numeric(amount)) %>%
+  distinct()
+
+# to eliminate any duplicated rows
+
+# display the cleaned dataset
+cleaned_arnold_md_loans
+
+```
+
+```{r}
+# cleaning function
+cleaned_arnold_md_loans <- arnold_md_loans %>%
+  clean_names() %>%
+  rename(id = x1_id) %>%
+  mutate(amount = as.numeric(amount)) %>%
+  distinct() %>%
+  mutate(zip = str_sub(zip, start=1L, end=5L))
+
+# to standardize the zip column
+# all to 5 digits
+
+# display the cleaned dataset
+cleaned_arnold_md_loans

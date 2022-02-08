@@ -321,7 +321,7 @@ cleaned_arnold_md_loans %>%
 
 ### Task 12: Check for duplicate rows
 **Task** Run the following codeblock to use distinct() to get rid of duplicate rows. How many rows does the new dataframe have? Answer below. Add a description of what this code does to your reference notebook.
-**Answer**
+**Answer** 5 rows now.
 
 ```{r}
 # cleaning function
@@ -339,7 +339,7 @@ cleaned_arnold_md_loans
 
 ### Task 13: Clean up ZIP code
 **Task** Run the following codeblock to use str_sub() to convert the ZIP codes that have nine digits to five digits, standardizing the field. Add a description of what this code does to your reference notebook.
-**Answer**
+**Answer** The zip code across all 5 entries is now 21012.
 
 ```{r}
 # cleaning function
@@ -358,6 +358,7 @@ cleaned_arnold_md_loans
 
 ### Task 14: Clean up city field
 **Task** Run the following codeblock to use str_tot_title() to standarize capitalization in the "city" field. How many mispellings of Arnold remain after running this code? Answer below. Add a description of what this code does to your reference notebook.
+**Answer** 
 
 ```{r}
 # cleaning function
