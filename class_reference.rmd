@@ -164,3 +164,31 @@ maryland_ppp %>%
   summarise(total = n()) %>%
   arrange(desc(total))
 ```
+
+guess_max - set the dataset type by the first 10 rows (guess_max=10)
+  certain amount of confidene that 10 rows is enough to determine the type
+  lower number, more risk tolerant
+
+```{r}
+ppp_maryland_loans <- read_csv("ppp_loans_md.csv.zip", guess_max=10)
+  # error message
+```
+  VS.
+```{r}
+ppp_maryland_loans <- read_csv("ppp_loans_md.csv.zip", guess_max=195865)
+  # no error message
+```
+
+```{r}
+
+problems(ppp_maryland_loans)
+ # mismatch between what was expected and the actual value
+```
+
+```{r}
+ppp_maryland_loans <- ppp_maryland_loans %>%
+  mutate(id = as.character(id))
+# changing the field from a number to a character value
+# overriding the previous same dataset --> naming the same dataset with the same name (replacing it in its entirety)
+# as.date, as.numeric, etc.
+```
