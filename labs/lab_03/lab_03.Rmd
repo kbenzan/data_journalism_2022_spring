@@ -123,7 +123,8 @@ Some hints to help you answer this question:
 * When you examine the disclosure forms, there may be lots of stock sales and retirement accounts mixed in.  Ignore those. In the table in the disclosure forms, look for "Partnership" or "C-Corp" in the column named "Income Type"
 * This is a link to details on passage of the [CARES ACT](https://www.congress.gov/bill/116th-congress/house-bill/748). You can find a link to how the House voted by clicking on a link from [this page](https://www.congress.gov/bill/116th-congress/house-bill/748/actions).
 
-A3:
+A3: The businesses names are DM Motors, Dutch Miller Chevrolet, Dutch Miller of Charleston, Dutch Miller of Charlotte and Dutch Miller Subaru. These businesses are owned by the spouse of Carol Miller. 
+All of these businesses are car dealerships, helping West Virginians with their next car purchases. 
 
 ```{r}
 
@@ -131,6 +132,7 @@ A3:
 # First, create a dataframe that only has loans to those five companies
 # Second, use that newly created dataframe to calculate total loan amount and percentage forgiven for those companies
 
-
+cleaned_zip_wv_loans %>% 
+  
 
 ```
