@@ -316,6 +316,7 @@ cleaned_arnold_md_loans <- arnold_md_loans %>%
 # TO CORRECT ALL MISSPELLINGS
 # str_detect(city, "^Arnl") ~ "Arnold" -- stronger than city == "Anold" ~ "Arnold"
 # ^ = starts with 
+# $ = ends the line
 
 # display the cleaned dataset
 cleaned_arnold_md_loans
