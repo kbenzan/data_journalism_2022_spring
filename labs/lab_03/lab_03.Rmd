@@ -132,8 +132,6 @@ All of these businesses are car dealerships, helping West Virginians with their 
 # First, create a dataframe that only has loans to those five companies
 # Second, use that newly created dataframe to calculate total loan amount and percentage forgiven for those companies
 
-dutch_miller <- cleaned_zip_wv_loans %>% 
-  filter(name == "DM Motors" | name == "Dutch Miller Chevrolet" | name == "Dutch Miller of Charleston" | name == "Dutch Miller of Charlotte" | name == "Dutch Miller Subaru") 
+dutch_miller <- frame("DM Motors","Dutch Miller Chevrolet","Dutch Miller of Charleston","Dutch Miller of Charlotte","Dutch Miller Subaru") 
   
-
 ```
