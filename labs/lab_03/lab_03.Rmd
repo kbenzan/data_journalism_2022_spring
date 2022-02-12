@@ -124,7 +124,7 @@ Some hints to help you answer this question:
 * This is a link to details on passage of the [CARES ACT](https://www.congress.gov/bill/116th-congress/house-bill/748). You can find a link to how the House voted by clicking on a link from [this page](https://www.congress.gov/bill/116th-congress/house-bill/748/actions).
 
 A3: The businesses names are DM Motors, Dutch Miller Chevrolet, Dutch Miller of Charleston, Dutch Miller of Charlotte and Dutch Miller Subaru. These businesses are owned by the spouse of Carol Miller. 
-All of these businesses are car dealerships, helping West Virginians with their next car purchases. 
+All of these businesses are car dealerships, helping West Virginians with their next car purchases. The five businesses received $3,105,300 in total. All of the Dutch Miller businesses have forgiven 505.6694% of their total loan amounts.
 
 ```{r}
 
@@ -132,6 +132,25 @@ All of these businesses are car dealerships, helping West Virginians with their 
 # First, create a dataframe that only has loans to those five companies
 # Second, use that newly created dataframe to calculate total loan amount and percentage forgiven for those companies
 
-dutch_miller <- select("DM Motors","Dutch Miller Chevrolet","Dutch Miller of Charleston","Dutch Miller of Charlotte","Dutch Miller Subaru") 
+dutch_miller <- wv_ppp_loans %>% 
+  mutate(new_name_column = case_when(
+    name == "DUTCH MILLER OF CHARLESTON, INC" ~ "Dutch Miller",
+    name == "DUTCH MILLER OF CHARLOTTE, INC" ~ "Dutch Miller",
+    name == "DUTCH MILLER SUBARU, INC" ~ "Dutch Miller",
+    name == "DUTCH MILLER CHEVROLET, INC." ~ "Dutch Miller",
+    name == "DM MOTOR, INC" ~ "Dutch Miller",
+    TRUE ~ name
+  )
+  ) %>% 
+filter(new_name_column == "Dutch Miller") %>% 
+ # summarise(sum = sum(amount))
+mutate(
+  percent_forgiven = (forgiveness_amount/amount)*100
+) %>% 
+summarise(
+  sum = sum(percent_forgiven)
+)
+  
+
   
 ```
