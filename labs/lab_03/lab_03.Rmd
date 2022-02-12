@@ -145,7 +145,5 @@ mutate(
 summarise(
   sum = sum(percent_forgiven)
 )
-  
-
-  
+ 
 ```
