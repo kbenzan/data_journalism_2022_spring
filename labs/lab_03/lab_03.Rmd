@@ -78,12 +78,7 @@ Q2: Find the 5-digit ZIP code in West Virginia that had the highest total amount
 * How much of that loan was forgiven?
 * Which number is bigger, the loan amount or the forgiveness amount? Can you explain the discrepancy?
 
-A2: 25301 is the zip code with the highest total amount of loans by dollar value. JACKSON KELLY PLLC got the largest loan in that zip code. 
-
-The zip code - 25301 - is in western West Virginia. 
-The business' loan was for $5,068,472.
-The forgiveness amount was $5,126,618.64. 
-The forgiveness amount is larger than the loan amount because of interest.
+A2: 25301 is the zip code with the highest total amount of loans by dollar value. The zip code - 25301 - is in western West Virginia. JACKSON KELLY PLLC got the largest loan in that zip code. The business' loan was for $5,068,472, and the forgiveness amount was $5,126,618.64. Interest explains why the forgiveness amount is larger than the loan amount. The interest is intentionally low to keep money in Americans' and businesses' pockets. The aim of this program is to boost spending in the midst of a pandemic. 
 
 ```{r}
 # Hint
