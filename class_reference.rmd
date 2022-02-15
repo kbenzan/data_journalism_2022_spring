@@ -340,3 +340,10 @@ my_result <- original_data %>%
 estimates <- bind_rows(list(popestimate_2010, popestimate_2015, popestimate_2020))
 View(estimates)
 ```
+
+
+### how to bind different dataframes (w/o same columns)
+```{r}
+# with nrow included to match row total
+maryland_ppp %>% left_join(naics_codes, by="naics_code") %>% select(name, naics_code, title) %>% nrow()
+```
