@@ -86,7 +86,7 @@ dates
 str_to_upper(name) - make all uppercase
 select(name) - show me
 
-to order by descending:
+### to order by descending:
 ```{r}
 maryland_ppp %>%
   select(loan_number, amount, payroll_proceed) %>%
@@ -134,7 +134,7 @@ mutate(
 )
 ```
 
-filters
+## filters
 ```{r}
 prince_georges <- maryland_ppp %>% filter(project_county_name == "PRINCE GEORGES")
 head(prince_georges)
@@ -156,7 +156,7 @@ nrow(or_prince_georges)
 
 read.csv
 
-to create a new column called month
+## to create a new column called month
 ```{r}
 maryland_ppp %>%
   mutate(Month = floor_date(date_approved, "month")) %>%
@@ -323,7 +323,7 @@ cleaned_arnold_md_loans
 
 ```
 
-template of order of things: 
+### template of order of things: 
 ```{r}
 
 my_result <- original_data %>% 
