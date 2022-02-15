@@ -69,7 +69,7 @@ naics_codes <- read_csv('data/naics_codes.csv')
 
 ### Task 5: Join Them
 **Task** Run the following code to join the PPP data to the NAICS codes using the common column naics_code as the key. How many rows are there now?
-**Answer**
+**Answer** There are still 190,787 rows. That means each company has a unique naics code.
 
 ```{r}
 # with nrow included to match row total
@@ -99,7 +99,7 @@ maryland_zcta <- read_csv('data/maryland_zcta.csv')
 
 ### Task 9: Join ZCTA to PPP Data
 **Task** Join the ZCTA data to the our PPP & NAICS data. What's the error message you get? What do you think it means? Add a description of what this code does to your reference notebook.
-**Answer**
+**Answer** The error message I receive is "Error: Can't join on `x$zip` x `y$zip` because of incompatible types." It means that the PPP & NAICS data is character, but the ZCTA data is numeric. 
 
 ```{r}
 # join on zip - but there's a problem

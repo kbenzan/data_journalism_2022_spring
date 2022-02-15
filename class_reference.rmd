@@ -334,16 +334,35 @@ my_result <- original_data %>%
   arrange(desc(new_aggregate))
 ```
 
-### how to bind different dataframes (w/ same columns)
+### how to bind different dataframes (vertically)
 ```{r}
 # bind_rows with list
 estimates <- bind_rows(list(popestimate_2010, popestimate_2015, popestimate_2020))
 View(estimates)
+
+# vertically joining dataframes - adding data on top of each other
 ```
 
 
-### how to bind different dataframes (w/o same columns)
+### how to bind different dataframes (horizontally - adding a new column)
 ```{r}
 # with nrow included to match row total
-maryland_ppp %>% left_join(naics_codes, by="naics_code") %>% select(name, naics_code, title) %>% nrow()
+maryland_ppp %>% left_join(naics_codes, by="naics_code") %>% select(name, naics_code, title) %>% nrow() 
+# counting rows
+
+# without nrow
+maryland_ppp %>% left_join(naics_codes) %>% select(name, naics_code, title)
+
+# creating a new dataframe with the combined
+maryland_ppp_with_naics <- maryland_ppp %>% left_join(naics_codes)
+
+left_join
+inner_join
+```
+
+
+### how to bind different dataframes (different types of data)
+```{r}
+# join on zip - but there's a problem
+maryland_ppp_with_naics_and_demographics <- maryland_ppp_with_naics %>% left_join(maryland_zcta, by=c("zip"="ZCTA5N"))
 ```
