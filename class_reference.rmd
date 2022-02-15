@@ -334,3 +334,9 @@ my_result <- original_data %>%
   arrange(desc(new_aggregate))
 ```
 
+### how to bind different dataframes (w/ same columns)
+```{r}
+# bind_rows with list
+estimates <- bind_rows(list(popestimate_2010, popestimate_2015, popestimate_2020))
+View(estimates)
+```
