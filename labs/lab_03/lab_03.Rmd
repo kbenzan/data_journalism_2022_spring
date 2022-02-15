@@ -46,9 +46,12 @@ glimpse(wv_ppp_loans)
 
 ```{r}
 cleaned_wv_loans <- wv_ppp_loans %>%
+  # filter(project_county_name == "KANAWHA")
   clean_names() %>%
   mutate(city = str_to_title(city)) %>%
   mutate(city = case_when(
+    #str_detect(city, "^St") ~ "Saint Albans"
+    #str_detect(city, "^S | ^So") ~ str_replace(city, "^S | ^So" )
     city == "St.albans" ~ "St. Albans",
     city == "St Albans" ~ "St. Albans",
     city == "Saint Albans" ~ "St. Albans",
@@ -92,9 +95,15 @@ cleaned_zip_wv_loans %>%
   summarise(sum = sum(amount)) %>% 
   arrange(desc(sum)) 
 
-cleaned_zip_wv_loans %>% 
+cleaned_zip_wv_loans %>%
   filter(zip == 25301) %>% 
   arrange(desc(amount))
+
+# OR
+# cleaned_zip_wv_loans <- wv_ppp_loans %>% 
+  # mutate(zip = str_sub(zip, start=1L, end=5L))
+  # filter(zip == 25301) %>% 
+  # arrange(desc(amount))
 ```
 
 Q3: Five business entities owned by the spouse of a member of West Virginia's U.S. House delegation got PPP loans. Write up a paragraph that answers the following questions.   
@@ -128,6 +137,8 @@ All of these businesses are car dealerships, helping West Virginians with their 
 # Second, use that newly created dataframe to calculate total loan amount and percentage forgiven for those companies
 
 dutch_miller <- wv_ppp_loans %>% 
+  # filter(name = "DM Motors" | "Dutch" etc. )
+  # filter(str_detect(name, "DUTCH |DM MOTOR"))
   mutate(new_name_column = case_when(
     name == "DUTCH MILLER OF CHARLESTON, INC" ~ "Dutch Miller",
     name == "DUTCH MILLER OF CHARLOTTE, INC" ~ "Dutch Miller",
