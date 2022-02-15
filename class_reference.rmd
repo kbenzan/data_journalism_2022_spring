@@ -322,3 +322,15 @@ cleaned_arnold_md_loans <- arnold_md_loans %>%
 cleaned_arnold_md_loans
 
 ```
+
+template of order of things: 
+```{r}
+
+my_result <- original_data %>% 
+  filter(column == "value") %>% 
+  mutate(column = str_to_title(column)) %>% 
+  group_by(column) %>% 
+  summarise(new_aggregate = n()) %>% 
+  arrange(desc(new_aggregate))
+```
+
