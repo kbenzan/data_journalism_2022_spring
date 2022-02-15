@@ -365,4 +365,9 @@ inner_join
 ```{r}
 # join on zip - but there's a problem
 maryland_ppp_with_naics_and_demographics <- maryland_ppp_with_naics %>% left_join(maryland_zcta, by=c("zip"="ZCTA5N"))
+# the order matters in c() --> must match the order in which they appear
+# join must be an EXACT MATCH
+
+# to change the type
+maryland_zcta <- maryland_zcta %>% mutate(across(ZCTA5N, as.character))
 ```
