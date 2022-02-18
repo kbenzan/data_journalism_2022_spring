@@ -59,7 +59,6 @@ Next join the two and then create a 5-character `zip5` column that we can use to
 
 ```{r}
 # add code here to accomplish the task
-mdppp_naics <- maryland_ppp %>% left_join(naics_codes) %>% select(name, naics_code, title)
 mdppp_naics <- maryland_ppp %>%  left_join(naics_codes)
 mdppp_naics <- mdppp_naics %>% mutate(zip5 = str_sub(zip, 1, 5))
 
@@ -83,42 +82,71 @@ Now we can join the PPP data to the ZCTA data:
 
 ```{r}
 # add code here to accomplish the task
-mdppp_naics <- mdppp_naics %>% mutate(zip5 = str_sub(zip, 1, 5))
-mdppp_naics_demographics <- mdppp_naics %>% left_join(md_zcta, by=c("zip"="ZCTA5N"))
+mdppp_naics_demographics <- mdppp_naics %>% left_join(md_zcta, by=c("zip5"="ZCTA5N"))
 
 ```
 
 ## Answer questions
 
 **Q1** What are the top 5 industries (using the NAICS title) with the most PPP applications in Maryland?
-**A1** [write your answer here]
+**A1** 1. Taxi Service; 2. Beauty Salons; 3. Full-Service Restaurants; 4. Offices of Real Estate Agents and Brokers; 5. All Other Personal Services
 
 ```{r}
 # Write the code to produce your answer here
+mdppp_naics_demographics %>% 
+  group_by(title) %>% 
+  summarise(
+    count = n()
+  ) %>% 
+  arrange(desc(count))
 ```
 
 **Q2** What are the top industries (using the NAICS title) with the most PPP applications in Maryland where the loan amount is more than $150,000?
-**A2** [write your answer here]
+**A2** Full-Service Restaurants received 1,488 applications, and Offices of Physicians (except Mental Health Specialists) received 580.
 
 ```{r}
 # Write the code to produce your answer here
-
+mdppp_naics_demographics %>% 
+  filter(amount > 150000) %>% 
+  group_by(title) %>%
+  summarise(
+    count = n()
+  ) %>% 
+  arrange(desc(count))
 ```
 
 **Q3** Which Maryland zip code with at least 20 percent non-Hispanic Asian population had the largest sum of PPP loans? Also show the number (count) of loans.
-**A3** [write your answer here]
+**A3** Zip code 20850 recorded the largest sum of PPP loans: $474,525,058. The count of loans was 3,186.
 
 ```{r}
 # Write the code to produce your answer here
-
+mdppp_naics_demographics %>% 
+  filter(PNHA >= 20) %>% 
+  group_by(zip5) %>% 
+  summarise(
+    sum = sum(amount),
+    count = n()
+  ) %>% 
+  arrange(desc(sum))
 ```
 
 **Q4** Which Maryland zip code had the largest sum of loans where the reported race of the applicant was "Asian", and what is the percentage of non-Hispanic Asian population in that zip code? Also show the number (count) of loans.
-**A4** [write your answer here]
+**A4** Zip code 20850 had the largest sum of loans when the applicant reported their race as "Asian." The sum was $28,994,798 from 240 loans. The percentage of non-Hispanic Asian population in that zip code is 23.5%.
 
 ```{r}
 # Write the code to produce your answer here
+mdppp_naics_demographics %>% 
+  filter(race == "Asian") %>%
+  group_by(zip5) %>% 
+  summarise(
+    sum = sum(amount),
+    count = n()
+  ) %>% 
+  arrange(desc(sum))
 
+mdppp_naics_demographics %>% 
+  filter(zip5 == "20850")
+  
 ```
 
 **Q5** What might explain why 20850 has a significant Asian population (23.5%) and only 240 of the 3,186 loans (7.5%) are to Asian applicants?
