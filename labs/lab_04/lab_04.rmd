@@ -158,7 +158,14 @@ mdppp_naics_demographics %>%
 
 ```{r}
 # Write the code to produce your answer here
-
+mdppp_naics_demographics %>% 
+  filter(race == "Asian" | NHA == 0) %>%
+  group_by(zip5) %>% 
+  summarise(
+    count = n(),
+    sum = sum(amount)
+  )
+  
 ```
 
 **Q7** How many industries have exactly one loan in the data (hint: you can filter _after_ using `summarise` on any totals you create). From a newsworthiness standpoint, which of these is most worthy of further exploration, and why?
