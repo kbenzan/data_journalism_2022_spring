@@ -50,6 +50,7 @@ First, let's load the NAICS code CSV file we have in the data folder:
 
 ```{r}
 # add code here to accomplish the task
+naics_codes <- read_csv('data/naics_codes.csv')
 ```
 
 Next join the two and then create a 5-character `zip5` column that we can use to join to the ZCTA data:
@@ -58,6 +59,10 @@ Next join the two and then create a 5-character `zip5` column that we can use to
 
 ```{r}
 # add code here to accomplish the task
+mdppp_naics <- maryland_ppp %>% left_join(naics_codes) %>% select(name, naics_code, title)
+mdppp_naics <- maryland_ppp %>%  left_join(naics_codes)
+mdppp_naics <- mdppp_naics %>% mutate(zip5 = str_sub(zip, 1, 5))
+
 ```
 
 Let's add the Zip Code Tabulation Area dataset. You'll need to make the `ZCTA5N` column a character column, not a numeric one.
@@ -66,6 +71,10 @@ Let's add the Zip Code Tabulation Area dataset. You'll need to make the `ZCTA5N`
 
 ```{r}
 # add code here to accomplish the task
+md_zcta <- read_csv('data/maryland_zcta.csv')
+
+md_zcta <- md_zcta %>% mutate(across(ZCTA5N, as.character))
+
 ```
 
 Now we can join the PPP data to the ZCTA data:
@@ -74,6 +83,9 @@ Now we can join the PPP data to the ZCTA data:
 
 ```{r}
 # add code here to accomplish the task
+mdppp_naics <- mdppp_naics %>% mutate(zip5 = str_sub(zip, 1, 5))
+mdppp_naics_demographics <- mdppp_naics %>% left_join(md_zcta, by=c("zip"="ZCTA5N"))
+
 ```
 
 ## Answer questions
