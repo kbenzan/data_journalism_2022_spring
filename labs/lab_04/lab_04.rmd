@@ -154,24 +154,30 @@ mdppp_naics_demographics %>%
 
 
 **Q6** Check to see if any Maryland zip codes that have loans where the PPP data lists the applicant as being Asian BUT are located in a zip code that does not appear to have Asian population according to the ZCTA data. How many loans do they have and what is the total amount? Take a look at these zip codes - what could explain this?
-**A6** [write your answer here]
+**A6** In total, the three zip codes account for 13 loans and $7,253,407.50. What could explain the significant amount of money is that these zip codes are located near the two major cities of Maryland - Baltimore and Annapolis. 21031 is in Baltimore County and 21240 and 20701 are in Anne Arundel County. Both counties are hubs for major commerce with many businesses.
 
 ```{r}
 # Write the code to produce your answer here
 mdppp_naics_demographics %>% 
-  filter(race == "Asian" | NHA == 0) %>%
+  filter(race == "Asian" & PNHA == 0) %>%
   group_by(zip5) %>% 
   summarise(
     count = n(),
     sum = sum(amount)
-  )
+  ) %>% 
+  arrange(desc(sum))
   
 ```
 
 **Q7** How many industries have exactly one loan in the data (hint: you can filter _after_ using `summarise` on any totals you create). From a newsworthiness standpoint, which of these is most worthy of further exploration, and why?
-**A7** [write your answer here]
+**A7** 44 industries have exactly one loan in the data. The industry Executive and Legislative Offices, Combined would require further investigation because the PPP loans aim to give out money to small businesses, not government branches.
 
 ```{r}
 # Write the code to produce your answer here
-
+mdppp_naics_demographics %>%
+  group_by(title) %>% 
+  summarise(
+    count = n()
+  ) %>% 
+  filter(count == 1)
 ```
