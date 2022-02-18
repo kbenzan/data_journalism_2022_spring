@@ -150,7 +150,7 @@ mdppp_naics_demographics %>%
 ```
 
 **Q5** What might explain why 20850 has a significant Asian population (23.5%) and only 240 of the 3,186 loans (7.5%) are to Asian applicants?
-**A5** [write your answer here]
+**A5** Not many small business owners may be Asian, or those filling out the loan paperwork may not be Asian. The race data from PPP loans is unreliable due to the uncertainty surrounding how the question was asked. The question on the application didn't even require an answer. Thus, some owners who are Asian may not have wanted to inform the federal government of their race out of fear that their race would hurt their chances of receiving a PPP loan.
 
 
 **Q6** Check to see if any Maryland zip codes that have loans where the PPP data lists the applicant as being Asian BUT are located in a zip code that does not appear to have Asian population according to the ZCTA data. How many loans do they have and what is the total amount? Take a look at these zip codes - what could explain this?
