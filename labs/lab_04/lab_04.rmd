@@ -155,6 +155,8 @@ mdppp_naics_demographics %>%
 
 **Q6** Check to see if any Maryland zip codes that have loans where the PPP data lists the applicant as being Asian BUT are located in a zip code that does not appear to have Asian population according to the ZCTA data. How many loans do they have and what is the total amount? Take a look at these zip codes - what could explain this?
 **A6** In total, the three zip codes account for 13 loans and $7,253,407.50. What could explain the significant amount of money is that these zip codes are located near the two major cities of Maryland - Baltimore and Annapolis. 21031 is in Baltimore County and 21240 and 20701 are in Anne Arundel County. Both counties are hubs for major commerce with many businesses. Anne Arundel houses about 54,000, and over 21,000 businesses call Baltimore home. Finally both Anne Arundel and Baltimore counties are a few of the most populous counties in Maryland. 
+# take a look at zip codes using satelittes. 
+# 21031 is a commercial zip codes, filled with mostly businesses. Asians may not reside here bc of so many businesses. Population is 0. 
 
 ```{r}
 # Write the code to produce your answer here
