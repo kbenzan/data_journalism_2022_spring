@@ -100,18 +100,34 @@ Google the street address.  Google the business names and search for their corpo
 Based on your research, does it seem suspicious that this collection of businesses all got loans using the same address? Why or why not. Use specific facts identified in your research to support your position.
 
 **A2.**
-According to Google Maps, 126 E Burke St appears to be a commercial building. There are multiple businesses listed at that address, including The Hub. Interestingly enough, Brix27 - a limited liability company - names Abraham Ashton and Drew Holdings LLC as two officers of their business. This overlap in businesses at that same business  
+I do not find the fact that all these businesses listed the same address as suggested. This is because according to Google Maps, 126 E Burke St appears to be a commercial building. There are multiple businesses listed at that address, including The Hub. Interestingly enough, Brix27 - a limited liability company - names Abraham Ashton and Drew Holdings LLC as two officers of their business. Hub Co-Op LLC (another limited liability company) also lists Abraham Ashton as an organizer for the company. This overlap may also explain how multiple businesses list the same address. A limited liability company is a business where the owner is protected from personal responsibility for debts/liabilities. This type of business structure combine a corporation with sole proprietorship. In the case of Brix27, the corporation is specialty food stores. And in the case of The Hub, the corporation is real estate. Therefore, the corporation (i.e. Brix27 or the Hub) can apply for a loan, plus the owner (i.e. Abraham Ashton) can apply for a loan.
 
 **Q3.** Start by using the West Virginia slice of the PPP loan data that you loaded at the start of the lab to create a subset of PPP loans in West Virginia's second largest county (which you can find in wv_population_county). And then use that table you created to answer the following questions:
 
 * Which city in that county had the highest number of loans?
 * In that city, which industry title had more loans than any other industry title?
 
+```{r}
+wv_pop_by_county %>% 
+  arrange(desc(population_2019))
+
+wv_ppp %>% 
+  filter(str_detect(project_county_name, "^BER")) %>% 
+  group_by(city) %>% 
+  summarise(
+    count = n()
+  ) %>% 
+  arrange(desc(count))
+```
+
+
 Requirement: you MUST export a dataframe of PPP loans from R Studio at some point in the process (not necessarily at the beginning!), load it into Open Refine, clean the city column, export it from Open Refine, and reimport into R Studio. To export data from R Studio, you will use the write_csv() function, which works like this if we're using the wv_population_county dataframe:
 
 ```{r}
 # write_csv accepts 2 arguments: the dataframe and the path to the file you write out
-write_csv(wv_population_county, "data\wv_population_county.csv")
+write_csv(wv_pop_by_county, "data/wv_pop_by_county.csv")
+
+write_csv(wv_ppp, "data/lab_05.csv")
 ```
 
 Guidance: there are a lot of steps you'll need to take to answer this question. You may find it helpful to write out in English what you plan to do step-by-step before you start writing code.   
