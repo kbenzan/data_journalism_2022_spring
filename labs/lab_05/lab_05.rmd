@@ -164,3 +164,14 @@ My second hypothesis is due to the supply chain issues restaurants are experienc
 Hint: you will not find the answers to the last three questions in the data.  You could call them directly to get that information, but I don't want you to do that for this assignment.  Instead, do some web research. I would start by Googling the company name from the data and looking at the page that comes up for the business from at http://apps.sos.wv.gov/. I would use information I found on that page and use info about the company from Google, the [Wayback machine](https://archive.org/web/) (which lets you look at older versions of a company's website), Yelp, and Facebook.
 
 **A5.**
+The highest approved loan was $8,912,202 for Greenbriar Hotel Corporation. It was approved on April 29, 2020. 
+```{r}
+wv_ppp_cleaned %>% 
+  summarise(
+    max(current_approval_amount)
+  )
+
+wv_ppp_cleaned %>% 
+  filter(str_detect(current_approval_amount, "8912202")) 
+```
+
