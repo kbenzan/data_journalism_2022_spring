@@ -111,9 +111,19 @@ I do not find the fact that all these businesses listed the same address as sugg
 wv_pop_by_county %>% 
   arrange(desc(population_2019))
 
-wv_ppp %>% 
+wv_ppp_cleaned <- read_csv("data/wv_ppp_loan_data3.csv")
+
+wv_ppp_cleaned %>% 
   filter(str_detect(project_county_name, "^BER")) %>% 
   group_by(city) %>% 
+  summarise(
+    count = n()
+  ) %>% 
+  arrange(desc(count))
+
+wv_ppp_cleaned %>% 
+  filter(str_detect(city, "^Mart")) %>% 
+  group_by(naics_code) %>% 
   summarise(
     count = n()
   ) %>% 
@@ -133,10 +143,7 @@ write_csv(wv_ppp, "data/lab_05.csv")
 Guidance: there are a lot of steps you'll need to take to answer this question. You may find it helpful to write out in English what you plan to do step-by-step before you start writing code.   
 
 **A3.**
-
-```{r}
-
-```
+Martinsburg is the city in that county with the highest number of loans. And full-service restaurants had more loans (50) than any other industry.
 
 **Q4.** What are your two best hypotheses, which you'd need to confirm with reporting and further analysis, that explain why that industry is at the top of the list?
 
