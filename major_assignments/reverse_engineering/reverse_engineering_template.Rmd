@@ -1,6 +1,6 @@
 ---
 title: "Reverse Engineering Project"
-author: "Student names here"
+author: "Dylan, Marianeli, and Katie"
 date: "Date here"
 output:
   html_document:
@@ -25,7 +25,7 @@ In this notebook, we are reverse engineering the story, [STORY NAME](STORY URL)
 Loading required libraries for this analysis.
 
 ```{r echo=FALSE, message=FALSE}
-
+library(tidyverse)
 ```
 
 ## Load and Cleaning Data
@@ -34,10 +34,13 @@ In this section, describe the source of the data, write a basic data dictionary 
 
 ```{r}
 # Load required data
+allegations_data <- read_csv("data/allegations_202007271729.csv")
 
 # Path to data should be loaded from folder "data" i.e. read_csv("data/name_of_data.csv")
 
 # Clean required data and prepare for analysis if needed. 
+cleaned_allegations_data <- allegations_data %>% 
+    distinct()
 
 
 ```
@@ -47,13 +50,20 @@ In this notebook, we are reverse engineering five sentences from the story.
 
 ### Sentence 1
 
-* **Sentence text**: [Paste in sentence to engineer here]
+* **Sentence text**: “Eighty-six of the roughly 420 officers in the department who currently hold a rank above captain — running precincts and other large commands and overseeing hundreds of officers — have tallied at least one misconduct allegation that was substantiated by the CCRB, meaning that investigators amassed enough evidence of offenses, ranging from bad language to pistol whippings, to say that they happened and broke patrol guidelines. The most common involved improper property entries and searches.”
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
 ```{r}
 # Put code to reverse engineer sentence here
-
 # Display results of code below this codeblock
+
+cleaned_allegations_data %>% 
+  filter(rank_now == "Captain") %>% 
+  filter(str_detect(board_disposition, "^Subs")) %>% 
+  group_by(shield_no) %>% 
+  summarise(
+    count = n()
+  )
 
 ```
 
