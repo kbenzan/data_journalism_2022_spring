@@ -371,3 +371,12 @@ maryland_ppp_with_naics_and_demographics <- maryland_ppp_with_naics %>% left_joi
 # to change the type
 maryland_zcta <- maryland_zcta %>% mutate(across(ZCTA5N, as.character))
 ```
+
+## how to adjust columns
+```{r}
+lender_types <- read_csv("tabula-PPP_Report_Public_210531-508.csv", skip=1, col_names=c("lender type", "lender count", "loans approved", "net_dollars"))
+#skip that first row
+#column names -- in order
+lender_types <- lender_types %>% mutate(net_dollars=as.numeric(parse_number(net_dollars)))
+View(lender_types)
+```
