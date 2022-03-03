@@ -105,6 +105,7 @@ Let's load it into R, and in doing so we'll skip the first two rows and add our 
 
 ```{r}
 # Write the code to load the CSV file here
+domestic_migration <- read_csv("data/tabula-md-statistical-handbook-domestic.csv", skip=2, col_names = c("State/Jurisdiction (7/1)", "2010_2011", "2011_2012", "2012_2013", "2013_2014", "2014_2015", "2015_2016", "2016_2017", "2017_2018", "2018_2019", "2010_2019"))
 ```
 
 Add a column for the type of migration ("domestic") and populate it:
@@ -113,6 +114,7 @@ Add a column for the type of migration ("domestic") and populate it:
 
 ```{r}
 # Write the code to add the column here
+domestic_migration <- domestic_migration %>% mutate(migration_type = "domestic")
 ```
 
 ## Answer questions
