@@ -54,7 +54,7 @@ Let's load it into R, and in doing so we'll skip the first two rows and add our 
 
 ```{r}
 # Write the code to load the CSV file here
-international_migration <- read_csv("data/tabula-md-statistical-handbook.csv", skip=2, col_names = c("State/Jurisdiction", "7/1/2010-7/1/2011", "7/1/2011-7/1/2012", "7/1/2012-7/1/2013", "7/1/2013-7/1/2014", "7/1/2014-7/1/2015", "7/1/2015-7/1/2016", "7/1/2016-7/1/2017", "7/1/2017-7/1/2018", "7/1/2018-7/1/2019", "7/1/2010-7/1/2019"))
+international_migration <- read_csv("data/tabula-md-statistical-handbook.csv", skip=2, col_names = c("State/Jurisdiction (7/1)", "2010_2011", "2011_2012", "2012_2013", "2013_2014", "2014_2015", "2015_2016", "2016_2017", "2017_2018", "2018_2019", "2010_2019"))
 ```
 
 Add a column for the type of migration ("international") and populate it:
@@ -73,7 +73,7 @@ international_migration <- international_migration %>% mutate(migration_type = "
 
 ```{r}
 # Write the code to produce your answer here
-international_migration <- international_migration %>% mutate(percent_total = 100*("7/1/10 - 7/1/19"/198996))
+international_migration <- international_migration %>% mutate(percent_total = 100*(2010_2019/198996))
 ```
 
 **Q2** Write a sentence or two that describes the data you produced in A1. Try to convey the most important idea.
@@ -84,7 +84,7 @@ international_migration <- international_migration %>% mutate(percent_total = 10
 
 ```{r}
 # Write the code to produce your answer here
-
+international_migration <- international_migration %>% mutate(percent_change = 100*((2017_2018-2016_2017)/2016_2017))
 ```
 
 **Q4** What's your best guess as to why these changes occurred, and in those places in particular?
