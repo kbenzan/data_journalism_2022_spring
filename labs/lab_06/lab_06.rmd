@@ -69,22 +69,26 @@ international_migration <- international_migration %>% mutate(migration_type = "
 ## Answer questions
 
 **Q1** Which region and county/city _below_ the state level accounted for the largest percentage of international migration for the entire time period? You'll need to add and populate a column representing percent of total using `mutate`.
-**A1** [write your answer here]
+**A1** Suburban Washington Region accounted for the largest percentage of international migration for the entire time period
 
 ```{r}
 # Write the code to produce your answer here
-international_migration <- international_migration %>% mutate(percent_total = 100*(2010_2019/198996))
+international_migration <- international_migration %>% mutate(percent_total = 100*(`2010_2019`/198996))
+
+international_migration %>% 
+    arrange(desc(percent_total))
+
 ```
 
 **Q2** Write a sentence or two that describes the data you produced in A1. Try to convey the most important idea.
-**A2** [write your answer here]
+**A2** 
 
 **Q3** Which region & jurisdiction had the largest percentage change (either negative or positive) for international migration between July 2018 and July 2017? The formula for percentage change is easy to remember: (New-Old)/Old.
 **A3** [write your answer here]
 
 ```{r}
 # Write the code to produce your answer here
-international_migration <- international_migration %>% mutate(percent_change = 100*((2017_2018-2016_2017)/2016_2017))
+international_migration <- international_migration %>% mutate(percent_change = 100*((`2017_2018`-`2016_2017`)/`2016_2017`))
 ```
 
 **Q4** What's your best guess as to why these changes occurred, and in those places in particular?
@@ -123,7 +127,8 @@ domestic_migration <- domestic_migration %>% mutate(migration_type = "domestic")
 
 ```{r}
 # Write the code to produce your answer here
-
+domestic_migration %>% 
+  max(`2010_2019`)
 ```
 
 **Q6** How many regions & jurisdictions had net positive migration for July 2017, July 2018 and July 2019 (not just individually but all three together)?
