@@ -63,7 +63,7 @@ Add a column for the type of migration ("international") and populate it:
 
 ```{r}
 # Write the code to add the column here
-international_migration <- international_migration %>% mutate(left_join(international, by = "migration_type"))
+international_migration <- international_migration %>% inner_join(international, migration_type)
 ```
 
 ## Answer questions
