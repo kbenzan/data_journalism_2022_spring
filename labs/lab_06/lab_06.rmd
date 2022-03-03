@@ -63,7 +63,7 @@ Add a column for the type of migration ("international") and populate it:
 
 ```{r}
 # Write the code to add the column here
-international_migration <- international_migration %>% inner_join(international, migration_type)
+international_migration <- international_migration %>% mutate(migration_type = "international")
 ```
 
 ## Answer questions
@@ -73,7 +73,7 @@ international_migration <- international_migration %>% inner_join(international,
 
 ```{r}
 # Write the code to produce your answer here
-
+international_migration <- international_migration %>% mutate(percent_total = 100*("7/1/10 - 7/1/19"/198996))
 ```
 
 **Q2** Write a sentence or two that describes the data you produced in A1. Try to convey the most important idea.
