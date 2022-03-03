@@ -1,7 +1,7 @@
 ---
 title: "lab_06"
 author: "katie benzan"
-date: "3/2/22"
+date: "3/3/22"
 output: html_document
 ---
 
@@ -140,12 +140,15 @@ domestic_migration %>%
 ```
 
 **Q6** How many regions & jurisdictions had net positive migration for July 2017, July 2018 and July 2019 (not just individually but all three together)?
-**A6** [write your answer here]
+**A6** 18 regions and jurisdictions had net positive migration for those three years.
 
 ```{r}
 # Write the code to produce your answer here
+domestic_migration <- domestic_migration %>%  mutate(net_2017_2019 = `2016_2017`+`2017_2018`+`2018_2019`)
 
+domestic_migration %>% 
+  filter(str_detect(net_2017_2019, "^-"))
 ```
 
 **Q7** How would you describe this data? Is there a county or region that stands out, and why?
-**A7** [write your answer here]
+**A7** This data is interesting because those regions with a net positive contain such lower numeric figure than those with a net negative. For instance, Frederick - the county with the largest net positive - recorded 8,536, whereas Suburban Washington Region - the region with the largest net negative - recorded -48,302. That being said, a region is larger than a county. But if we compare Frederick with the largest net negative country, Frederick still recorded such a lower numeric figure that Baltimore (-30,495). Also, the counties surrounding D.C. seemed to record net negatives, whereas the counties further out from D.C. recorded net positives. This pattern is contrary to international migration, where the counties near D.C. recorded net positives. 
