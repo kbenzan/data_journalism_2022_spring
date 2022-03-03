@@ -81,18 +81,24 @@ international_migration %>%
 ```
 
 **Q2** Write a sentence or two that describes the data you produced in A1. Try to convey the most important idea.
-**A2** 
+**A2** The data in A1 represents that the most international migration took place in Suburban Washington Region within Maryland. About 63% of immigrants decided to relocate to that region (Frederick, Montgomery and Prince George's counties). This data makes sense due to the abundance of international business that occurs in D.C. 
 
 **Q3** Which region & jurisdiction had the largest percentage change (either negative or positive) for international migration between July 2018 and July 2017? The formula for percentage change is easy to remember: (New-Old)/Old.
-**A3** [write your answer here]
+**A3** Calvert County recorded the largest percentage change: -76.923077. 	
 
 ```{r}
 # Write the code to produce your answer here
 international_migration <- international_migration %>% mutate(percent_change = 100*((`2017_2018`-`2016_2017`)/`2016_2017`))
+
+international_migration %>% 
+  arrange(desc(percent_change))
+
+international_migration %>% 
+  arrange(percent_change)
 ```
 
 **Q4** What's your best guess as to why these changes occurred, and in those places in particular?
-**A4** [write your answer here]
+**A4** A natural disaster is my best guess as to why the international migration decreased by that much. Calvert County is a southern county with a coast. Hurricanes and coastal storms could divert immigrants from settling in Calvert.
 
 
 ## Back to Tabula
@@ -123,12 +129,14 @@ domestic_migration <- domestic_migration %>% mutate(migration_type = "domestic")
 
 ## Answer questions
 **Q5** Which Maryland individual jurisdiction saw the largest net decrease in domestic migration overall?
-**A5** [write your answer here]
+**A5** Montgomery County saw the largest net decrease in domestic migration
 
 ```{r}
 # Write the code to produce your answer here
-domestic_migration %>% 
-  max(`2010_2019`)
+domestic_migration <- domestic_migration %>%  mutate(percent_change = 100*((`2018_2019`-`2010_2011`)/`2010_2011`))
+
+domestic_migration %>%   
+  arrange(percent_change)
 ```
 
 **Q6** How many regions & jurisdictions had net positive migration for July 2017, July 2018 and July 2019 (not just individually but all three together)?
