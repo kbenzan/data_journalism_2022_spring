@@ -69,7 +69,7 @@ international_migration <- international_migration %>% mutate(migration_type = "
 ## Answer questions
 
 **Q1** Which region and county/city _below_ the state level accounted for the largest percentage of international migration for the entire time period? You'll need to add and populate a column representing percent of total using `mutate`.
-**A1** Suburban Washington Region accounted for the largest percentage of international migration for the entire time period
+**A1** Suburban Washington Region and Montgomery County accounted for the largest percentage of international migration for the entire time period
 
 ```{r}
 # Write the code to produce your answer here
@@ -84,7 +84,7 @@ international_migration %>%
 **A2** The data in A1 represents that the most international migration took place in Suburban Washington Region within Maryland. About 63% of immigrants decided to relocate to that region (Frederick, Montgomery and Prince George's counties). This data makes sense due to the abundance of international business that occurs in D.C. 
 
 **Q3** Which region & jurisdiction had the largest percentage change (either negative or positive) for international migration between July 2018 and July 2017? The formula for percentage change is easy to remember: (New-Old)/Old.
-**A3** Calvert County recorded the largest percentage change: -76.923077. 	
+**A3** Calvert County and Sothern Maryland Region recorded the largest percentage changes. 	
 
 ```{r}
 # Write the code to produce your answer here
@@ -129,26 +129,23 @@ domestic_migration <- domestic_migration %>% mutate(migration_type = "domestic")
 
 ## Answer questions
 **Q5** Which Maryland individual jurisdiction saw the largest net decrease in domestic migration overall?
-**A5** Montgomery County saw the largest net decrease in domestic migration
+**A5** Baltimore City saw the largest net decrease in domestic migration
 
 ```{r}
 # Write the code to produce your answer here
-domestic_migration <- domestic_migration %>%  mutate(percent_change = 100*((`2018_2019`-`2010_2011`)/`2010_2011`))
-
 domestic_migration %>%   
-  arrange(percent_change)
+  arrange(`2010_2019`)
 ```
 
 **Q6** How many regions & jurisdictions had net positive migration for July 2017, July 2018 and July 2019 (not just individually but all three together)?
-**A6** 18 regions and jurisdictions had net positive migration for those three years.
+**A6** 14 regions and jurisdictions had net positive migration for those three years.
 
 ```{r}
 # Write the code to produce your answer here
-domestic_migration <- domestic_migration %>%  mutate(net_2017_2019 = `2016_2017`+`2017_2018`+`2018_2019`)
-
 domestic_migration %>% 
-  filter(str_detect(net_2017_2019, "^-"))
+  filter(`2016_2017` > 0 & `2017_2018` > 0 & `2018_2019` > 0) %>% 
+  select(`2016_2017`, `2017_2018`, `2018_2019`, `State/Jurisdiction (7/1)`)
 ```
 
 **Q7** How would you describe this data? Is there a county or region that stands out, and why?
-**A7** This data is interesting because those regions with a net positive contain such lower numeric figure than those with a net negative. For instance, Frederick - the county with the largest net positive - recorded 8,536, whereas Suburban Washington Region - the region with the largest net negative - recorded -48,302. That being said, a region is larger than a county. But if we compare Frederick with the largest net negative country, Frederick still recorded such a lower numeric figure that Baltimore (-30,495). Also, the counties surrounding D.C. seemed to record net negatives, whereas the counties further out from D.C. recorded net positives. This pattern is contrary to international migration, where the counties near D.C. recorded net positives. 
+**A7** With few exceptions, the data is filled with counties. Then two regions - Southern Maryland and Upper Eastern Shore - stand out. The list contains only three of five counties from Upper Eastern Shore; the list then contains two of three counties from Southern Maryland. The rest of the list incorporates northern and central counties, and approximately half of Maryland's counties are included. It also appears that the larger counties have similar numbers as the regions. For example, Anne Arundel. Frederick even has a net positive larger than the two regions - almost twice as large. 
