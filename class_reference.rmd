@@ -117,7 +117,7 @@ maryland_with_in_out <- maryland_ppp %>%
 ```
 == - test of equivalence
 
-case_when
+case_when -- multiple if_else statements
 ```{r}
 # case_when example
 maryland_jobs_categories <- maryland_ppp %>%

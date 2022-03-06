@@ -58,13 +58,15 @@ In this notebook, we are reverse engineering five sentences from the story.
 # Display results of code below this codeblock
 
 # Claim 1, 86 out of 420 officers ranked above captain with substantiated complaints
-cleaned_allegations_data %>% 
+allegations_data %>% 
   filter(rank_now == "Chiefs and other ranks" | rank_now == "Deputy Inspector" | rank_now == "Inspector") %>% 
+  filter(str_detect(board_disposition, "^Subs")) %>% 
   select(unique_mos_id) %>%
   distinct() %>% 
   group_by(unique_mos_id) %>% 
-  summarize(count = n()) %>% 
-  summarize(total = sum(count))
+  summarise(count = n()) %>% 
+  summarise(total = sum(count))
+  
 
 # Claim 2, improper property entries and searches was the most common
 cleaned_allegations_data %>% 
