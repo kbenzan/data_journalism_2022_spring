@@ -284,7 +284,7 @@ Now, let's run the code we wrote in the last chapter, to get a tidy list of NAIC
 
 ### Task 2: Run code to load the table from the last chapter
 **Task** Run the following code to load table from last chapter. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The output shows a tibble of sectors and descriptions.
 ```{r}
 # Define url of page we want to scrape
 
@@ -324,7 +324,7 @@ We can find it here: [https://www.bls.gov/iag/tgs/iag22.htm](https://www.bls.gov
 
 ### Task 4: Go to the web page linked above
 **Task** Visit the web page linked above. Briefly describe what you see there.
-**Answer**
+**Answer** I see a table that describes all employment for the Utilities sector. I see the 538.7 that is included in the image above.
 
 A few scrolls down the page, there's a table that has employee statistics.  
 
@@ -358,7 +358,7 @@ Next, let's read in the html of that page, and store it as an object called empl
 
 ### Task 7: Run code to read in html
 **Task** Run the following code to read in the html. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The output shows the code for an HTML document. It includes a "head" tag and a "body" tag. 
 
 ```{r}
 
@@ -399,7 +399,7 @@ But essentially what the html_element function says is "find the html element th
 
 ### Task 9: Run code to get html_element with info we need
 **Task** Run the following code to get html_element with info we need. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The output shows an HTML node with the HTML code for the table (id="iag22emp1").
 
 ```{r}
 
@@ -421,7 +421,7 @@ From here, we can use the html_tables() function to transform it from messy html
 
 ### Task 10: Run code to convert to table
 **Task** Run the following code to convert to table. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I see a tibble with the employment, backdata and months. However, the backdata column is pretty much blank. Then the final row reads "Footnotes(p) Preliminary" in every column.
 
 ```{r}
 
