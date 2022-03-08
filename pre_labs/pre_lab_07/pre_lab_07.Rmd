@@ -878,13 +878,13 @@ Armed with the URL and xpath for each sector web page, we can now go out and get
 
 We'll read in the html from the url we just stored; extract the table that has the xpath ID we just created; and then transform the html table code into a proper dataframe.
 
-The dataframe is hidden inside  a nested list, which we'll have to extract in the next step.
+The dataframe is hidden inside a nested list, which we'll have to extract in the next step.
 
 So, when you run this code, it will print out 19 dataframes inside of nested lists, each containing one dataframe.
 
 ### Task 31: Run code to run for loop to get tables
 **Task** Run the following for loop to get tables. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** This code extracts the online table and spits out 19 tibbles for each sector. Although, there is some extra stuff that we'll need to clean up (i.e. Backdata).
 
 ```{r}
 
@@ -918,7 +918,7 @@ In this next step, we use employment_info <- employment_info[[1]]  to extract ea
 
 ### Task 32: Run code to run for loop to clean up tables
 **Task** Run the following for loop to clean up tables. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** 19 tibbles pop up that show the employment for each sector for four months (Nov 2021, Dec 2021, Jan 2022, and Feb 2022).
 
 ```{r}
 
@@ -959,7 +959,7 @@ We can add that back in by using bind_cols() to reconnect the each_row_df, which
 
 ### Task 33: Run code to run for loop to add in data
 **Task** Run the following for loop to add in data. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** This output combines the output from Task 32, the sector number, description, URL and xpath_id.
 
 ```{r}
 
@@ -1001,7 +1001,7 @@ Let's use parse_number() to remove the comma from the jun_2021 number and conver
 
 ### Task 34: Run code to run for loop to clean up tables
 **Task** Run the following for loop to clean up tables. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** Now these tibbles simply incorporate the sector code, the description and November 2021 employees.
 
 ```{r}
 
@@ -1054,7 +1054,7 @@ And inside our "for loop" at the end, we'll bind each employment_info dataframe 
 
 ### Task 35: Run code to run for loop to combine tables into a single table
 **Task** Run the following for loop combine tables into a single table. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** Now the different tibbles from above are combined into one table with 19 rows.
 
 ```{r}
 
