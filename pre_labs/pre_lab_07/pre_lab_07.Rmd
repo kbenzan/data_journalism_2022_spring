@@ -479,13 +479,13 @@ The info for mining is on this page: [https://www.bls.gov/iag/tgs/iag21.htm](htt
 
 ### Task 12: Go to the web page linked above
 **Task** Visit the web page linked above. Briefly describe what you see there.
-**Answer**
+**Answer** I see a table of all employing for the Mining, Quarrying, and Oil and Gas Extraction sector. It includes the 536.9 that we can find above.
 
 The info for construction is on this page: [https://www.bls.gov/iag/tgs/iag23.htm](https://www.bls.gov/iag/tgs/iag23.htm).
 
 ### Task 13: Go to the web page linked above
 **Task** Visit the web page linked above. Briefly describe what you see there.
-**Answer**
+**Answer** Same thing as the Mining, Quarrying, and Oil and Gas Extraction sector, but just for the Construction sector.
 
 We have 20 sectors to get through.  
 
@@ -512,7 +512,7 @@ First, let's do it the repetitive way.  We're writing the same print function ov
 
 ### Task 14: Run code to print sectors
 **Task** Run the following code to print sectors. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I see just a list of all the sectors. 
 ```{r}
 
 print("Agriculture, Forestry, Fishing and Hunting")
@@ -536,7 +536,7 @@ First let's make a list of sectors, and save it as an object called "list_of_sec
 
 ### Task 15: Run code to make list of sectors
 **Task** Run the following code to make list of sectors. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The following code adds a value in the Environment section "list of sectors" with 10 observations.
 ```{r}
 list_of_sectors <- c("Agriculture, Forestry, Fishing and Hunting", "Mining, Quarrying, and Oil and Gas Extraction", "Utilities", "Construction", "Manufacturing",
 "Wholesale Trade", "Retail Trade", "Transportation and Warehousing", "Information", "Finance and Insurance")
@@ -547,7 +547,7 @@ And now let's write a "for loop" to print out sector on that list.
 
 ### Task 16: Run code to use for loop to print sectors
 **Task** Run the following code to use a for loop to print list of sectors. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** This code is similar to print each sector, however more efficiently. Now by just saying "sector" in a loop, the output will print all sectors in the "list of sectors".
 ```{r}
 # Define list of sectors
 list_of_sectors <- c("Agriculture, Forestry, Fishing and Hunting", "Mining, Quarrying, and Oil and Gas Extraction", "Utilities", "Construction", "Manufacturing",
@@ -571,7 +571,7 @@ If we try to feed it something different -- say "sector_list" -- it won't work, 
 
 ### Task 17: Run code to use for loop to print sectors that errors
 **Task** Run the following code to use a for loop to print list of sectors that errors. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I receive an error message that says "object 'sector_list' not found." This is because our list is named "list_of_sectors".
 
 ```{r, error=TRUE}
 # Define list of sectors
@@ -596,7 +596,7 @@ To illustrate this, note that the code works just fine if we change it to say th
 
 ### Task 18: Run code to use for loop to print sectors
 **Task** Run the following code to use a for loop to print list of sectors. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** This output looks very similar as the output from Task 16. What's different is the stand-in "x."
 ```{r}
 # Define list of sectors
 list_of_sectors <- c("Agriculture, Forestry, Fishing and Hunting", "Mining, Quarrying, and Oil and Gas Extraction", "Utilities", "Construction", "Manufacturing",
@@ -616,7 +616,7 @@ In this code below, it has no idea what we mean by "sector_name", because we hav
 
 ### Task 19: Run code to use for loop to print sectors that errors
 **Task** Run the following code to use a for loop to print list of sectors. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I see an error message: object 'sector_name' not found. We first said "x" then changed it to "sector_name."
 ```{r, error=TRUE}
 # Define list of sectors
 list_of_sectors <- c("Agriculture, Forestry, Fishing and Hunting", "Mining, Quarrying, and Oil and Gas Extraction", "Utilities", "Construction", "Manufacturing",
@@ -636,7 +636,7 @@ The code below says: "for each number in a range of numbers from 1 to 10, print 
 
 ### Task 20: Run code to use for loop to print 1 to 10
 **Task** Run the following code to use a for loop to print 1 to 10. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I see a list counting from 1 to 10.
 ```{r}
 # For loop that includes instructions that refer to a variable that doesn't exist.
 for (number in 1:10) {
@@ -651,7 +651,7 @@ Instead of giving the for loop an explicit number range, like 1:10, we can tell 
 Remember the naics_industry dataframe we loaded first? It has 20 rows.
 ### Task 21: Run code to display naics_industry
 **Task** Run the following code to display naics_industry. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I see a tibble that includes the sector and description with 20 observations.
 
 ```{r}
 
@@ -663,7 +663,7 @@ We can use that information in our for loop by using the nrow() function, which 
 
 ### Task 22: Run code to display number of rows in naics_industry
 **Task** Run the following code to display number of rows naics_industry. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The output is 20 because there are 20 sectors.
 
 ```{r}
 nrow(naics_industry)
@@ -673,7 +673,7 @@ To put it all together, the code below says "make a list of numbers that starts 
 
 ### Task 23: Run code to print each row number in naics_industry
 **Task** Run the following code to to print each row number in naics_industry. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I see a list ranging from 1 to 20.
 
 ```{r}
 # For loop that includes instructions that refer to a variable that doesn't exist.
@@ -690,7 +690,7 @@ First, let's look at the codeblock we wrote earlier to extract the number of emp
 
 ### Task 24: Run code to load table from earlier
 **Task** Run the following code to load table from earlier. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The coded tibble gives the employment for the Mining, Quarrying, and Oil and Gas Extraction sector from November 2021.
 
 ```{r}
 
@@ -717,7 +717,7 @@ This contains all the steps we needed to extract the information from one sector
 First, we need to build a list of URLs to loop through in a "for loop." We can do that using the dataframe we made in the last chapter.
 ### Task 25: Run code to load the table from the last chapter
 **Task** Run the following code to load table from last chapter. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I see our tibble with the naics sector and discription.
 ```{r}
 # Define url of page we want to scrape
 
@@ -757,7 +757,7 @@ We're going to use mutate() and paste0() to concatenate (mash together) the thin
 
 ### Task 26: Run code to build url
 **Task** Run the following code to build url. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The ouput includes the usual sector and description columns, but also a column that contains the URL for each sector.
 
 ```{r}
 
@@ -779,7 +779,7 @@ On the Utilities page (sector code 22), the ID for the table we want is "iag22em
 
 ### Task 27: Run code to build id
 **Task** Run the following code to build id. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The ouput includes the usual sector and description columns, also a sector URL column and a sector xpath column.
 
 ```{r}
 
@@ -796,7 +796,7 @@ Lastly, we're going to use filter to remove the "Public Administration" sector, 
 
 ### Task 28: Run code to filter table
 **Task** Run the following code to filter table. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** This tibble is the same as above, except for one difference. This tibble does NOT include "Public Administration," so there are only 19.
 
 ```{r}
 
@@ -819,7 +819,7 @@ We get 19 dataframes, each with one row, one for each sector.
 
 ### Task 29: Run code to run for loop and keep one row
 **Task** Run the following for loop and keep one row. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The output contains 19 tibbles. Each tibble reveals one row for each sector.
 
 ```{r}
 
@@ -851,7 +851,7 @@ To see how this is working, we're going to edit our print statement at the end a
 
 ### Task 30: Run code to run for loop to store url and xpath value
 **Task** Run the following for loop to store url and xpath value. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** The output is a list that describes each row. For example, [1] "ROW NUMBER:1 URL: https://www.bls.gov/iag/tgs/iag11.htm XPATH://*[@id=\"iag11emp1\"]"
 ```{r}
 
 # For loop, iterating over each row in our naics industry dataframe
