@@ -446,7 +446,7 @@ Use clean_names() to standardize the column names, use slice() to keep only the 
 
 ### Task 11: Run code to keep row 2 and light cleaning
 **Task** Run the following code to keep row 2 and light cleaning. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I only see the employment from November 2021 (536.9). 
 
 ```{r}
 
@@ -1111,7 +1111,7 @@ Here's the table on the mining sector page: [https://www.bls.gov/iag/tgs/iag21.h
 
 ### Task 36: Go to the web page linked above
 **Task** Visit the web page linked above. Briefly describe what you see there.
-**Answer**
+**Answer** I see the employment information about the Mining, Quarrying, and Oil and Gas Extraction sector.
 
 ### Task 37: Load image
 **Task** Run the following code to display an image showing what you should see on the web page.
@@ -1125,7 +1125,7 @@ And here's the table for the agriculture sector.
 
 ### Task 38: Go to the web page linked above
 **Task** Visit the web page linked above. Briefly describe what you see there.
-**Answer**
+**Answer** I only see the unemployment rate from the Agriculture, Forestry, Fishing and Hunting sector. 
 
 ### Task 39: Load image
 **Task** Run the following code to display an image showing what you should see on the web page.
@@ -1139,7 +1139,7 @@ In the second row of this table, it has the unemployment rate. Nowhere on the pa
 
 ### Task 40: Run code to remove agriculture from table
 **Task** Run the following code to remove agriculture from table. Briefly describe the output that appears below the codeblock.
-**Answer**
+**Answer** I see our finished table however the number of employees for Agriculture, Forestry, Fishing and Hunting is NA. 
 
 ```{r}
 # remove the suspicious value for agriculture.
