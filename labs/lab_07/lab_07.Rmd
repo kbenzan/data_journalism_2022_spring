@@ -49,9 +49,23 @@ A1.
 # store URL
 fraud_url <- "https://www.justice.gov/criminal-fraud/cares-act-fraud"
 
+# read html
 fraud_cases <- fraud_url %>% 
   read_html()
 
+# empty dataframe
+doj_fraud <- tibble()
+
+# find elements
+fraud_cases <- fraud_url %>% 
+  read_html() %>% 
+  html_elements('ul a') %>% 
+  html_text()
+
+# dataframe
+fraud_cases <- fraud_cases[[3]]
+
+fraud_cases
 ```
 
 Q2. In how many individual judicial districts has the U.S. Department of Justice filed cases against people accused of fraud related to the PPP or EIDL loan program, according to the DOJ website listing those cases: https://www.justice.gov/criminal-fraud/cares-act-fraud?  Note: an example of a judicial district is "Southern District of Florida". You will need to use rvest scrape the data on this single webpage into a dataframe.
