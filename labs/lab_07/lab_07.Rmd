@@ -43,7 +43,7 @@ library(janitor)
 
 
 Q1. How many individual cases has the U.S. Department of Justice filed against people accused of fraud related to the PPP or EIDL loan program, according to the DOJ website listing those cases: https://www.justice.gov/criminal-fraud/cares-act-fraud?  An example of one case that appears on this page is "U.S. v. Richard Ayvazyan et al". To answer this question, you will need to use rvest to scrape the data on this single webpage into a dataframe that lists only case names. Hint: you will need to make use of html_elements() and html_text() -- a function that extracts text inside of an html tag -- for this.
-A1.
+A1. 100 cases
 
 ```{r}
 # store URL
@@ -53,37 +53,104 @@ fraud_url <- "https://www.justice.gov/criminal-fraud/cares-act-fraud"
 fraud_cases <- fraud_url %>% 
   read_html()
 
-# empty dataframe
-doj_fraud <- tibble()
-
 # find elements
 fraud_cases <- fraud_url %>% 
   read_html() %>% 
-  html_elements('ul a') %>% 
-  html_text()
+  html_elements('li b') %>% 
+  html_text('li b')
 
 # dataframe
-fraud_cases <- fraud_cases[[3]]
+fraud_cases <- as.data.frame(fraud_cases)
 
-fraud_cases
+# clean
+fraud_cases <- fraud_cases %>% 
+  clean_names() %>% 
+  distinct()
+
 ```
 
 Q2. In how many individual judicial districts has the U.S. Department of Justice filed cases against people accused of fraud related to the PPP or EIDL loan program, according to the DOJ website listing those cases: https://www.justice.gov/criminal-fraud/cares-act-fraud?  Note: an example of a judicial district is "Southern District of Florida". You will need to use rvest scrape the data on this single webpage into a dataframe.
-A2.
+A2. 31 districts.
 
 ```{r}
+# store URL
+fraud_url <- "https://www.justice.gov/criminal-fraud/cares-act-fraud"
 
+# read html
+fraud_districts <- fraud_url %>% 
+  read_html()
+
+# find elements
+fraud_districts <- fraud_url %>% 
+  read_html() %>% 
+  html_elements('b i') %>% 
+  html_text('b i')
+
+# dataframe
+fraud_districts <- as.data.frame(fraud_districts)
+
+# clean
+fraud_districts <- fraud_districts %>% 
+  clean_names() %>% 
+  distinct()
 ```
 
 Q4. The website (https://www.justice.gov/criminal-fraud/cares-act-fraud) shows that the DOJ filed more cases in the Southern District of Florida than in any other district. One of those cases was filed against someone named "Diamond Blue Smith". Who is Smith, and what was he accused of, according to the criminal complaint? If you were an editor, would you have assigned a reporter to write a story about this case when the complaint was filed in court? Why or why not?
-A4.
+A4. Smith is accused of wire fraud, bank fraud and conspiracy/attempt to commit wire fraud and bank fraud. Smith obtained two PPP loans for his companies - Throwbackjerseys.com, LLC ("Throwbackjerseys.com"), and BlueStarRecords, LLC ("BlueStarRecords"). Smith also teamed up with other applicants to submit at least 90 fake applications that totaled more than $24 million. Almost half of those loans were approved, scamming the federal government out of about $17.4 million. Due to these figures, I would assign a reporter to this case. Smith was responsible and the mind behind an enormous deception of the federal government. 
 
-Q5. In what percentage of all judicial districts has the U.S. Department of Justice filed cases cases against people accused of fraud related to the PPP or EIDL loan program, according to the DOJ website listing those cases: https://www.justice.gov/criminal-fraud/cares-act-fraud? In answering this question, you should also produce a list of judicial districts where DOJ has NOT filed a case, according to this site.  Note: to answer this question, you will need to scrape a table of all district courts on this up-to-date Wikipedia page under the heading "Active Courts": https://en.wikipedia.org/wiki/List_of_United_States_district_and_territorial_courts  
+Q5. In what percentage of all judicial districts has the U.S. Department of Justice filed cases against people accused of fraud related to the PPP or EIDL loan program, according to the DOJ website listing those cases: https://www.justice.gov/criminal-fraud/cares-act-fraud? In answering this question, you should also produce a list of judicial districts where DOJ has NOT filed a case, according to this site.  Note: to answer this question, you will need to scrape a table of all district courts on this up-to-date Wikipedia page under the heading "Active Courts": https://en.wikipedia.org/wiki/List_of_United_States_district_and_territorial_courts  
 A5.
 
 
 ```{r}
+# store URL
+fraud_url <- "https://www.justice.gov/criminal-fraud/cares-act-fraud"
 
+# read html
+fraud_districts <- fraud_url %>% 
+  read_html()
+
+# find elements
+fraud_districts <- fraud_url %>% 
+  read_html() %>% 
+  html_elements('b i') %>% 
+  html_text('b i')
+
+# dataframe
+fraud_districts <- as.data.frame(fraud_districts)
+
+# clean
+fraud_districts <- fraud_districts %>% 
+  clean_names() %>% 
+  distinct()
+
+# all judicial courts
+allcourts_url <- "https://en.wikipedia.org/wiki/List_of_United_States_district_and_territorial_courts"
+
+# read html
+district_courts <- allcourts_url %>% 
+  read_html()
+
+# find elements
+district_courts <- allcourts_url %>% 
+  read_html() %>% 
+  html_table()
+
+# dataframe
+district_courts <- district_courts[[3]] %>% 
+  clean_names() %>% 
+  distinct()
+
+# new column
+fraud_districts <- fraud_districts %>% mutate(doj_filing = "filed")
+fraud_districts <- fraud_districts %>% 
+  rename(region = fraud_districts)
+
+
+# combine dataframes
+district_courts %>% 
+  left_join(fraud_districts, by "region") %>% 
+  select(region)
 ```
 Q6. What might explain why, according to this site, the DOJ has filed PPP-related fraud cases in less than half of the country's judicial districts?
 A6.
