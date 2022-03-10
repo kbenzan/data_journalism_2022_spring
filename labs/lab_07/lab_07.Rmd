@@ -11,6 +11,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## About this lab
 
+read_html - given a url, reads the html
+html_table - given html, finds the <table> objects
+html_elements - given html, you supply one or more tags OR an xpath expression
+  ex. my_stuff <- url %>% 
+    read_html() %>% 
+    html_elements(`p a`) #this finds all the <p> tags
+html_text - the contents of any tag
+
+1. read the html
+2. find the elements i need
+3. grad the dataframe and put it in a container of all of my data
+
 To complete this lab, you need to:
 * write code in empty codeblocks provided to answer questions included (look for **Q**).
 * write out the answer in the form of a complete sentence in the space given (look for **A**).
@@ -24,7 +36,9 @@ When you are finished, commit changes and push to your personal GitHub repo, the
 options(scipen=999)
 
 # Load the tidyverse,rvest,janitor
-
+library(rvest)
+library(tidyverse)
+library(janitor)
 ```
 
 
@@ -32,6 +46,11 @@ Q1. How many individual cases has the U.S. Department of Justice filed against p
 A1.
 
 ```{r}
+# store URL
+fraud_url <- "https://www.justice.gov/criminal-fraud/cares-act-fraud"
+
+fraud_cases <- fraud_url %>% 
+  read_html()
 
 ```
 
