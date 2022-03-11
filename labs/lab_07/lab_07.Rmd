@@ -1,7 +1,7 @@
 ---
 title: "lab_07"
 author: "katie benzan"
-date: "3/10/22"
+date: "3/11/22"
 output: html_document
 ---
 
@@ -156,33 +156,47 @@ Q6. What might explain why, according to this site, the DOJ has filed PPP-relate
 A6. The DOJ has filed cases in less than half of the country's judicial districts because these particular cases add up to hundreds of millions of dollars. Just one particular case with Mr. Smith cost the federal government $17 million. The DOJ seemingly concentrated on the larger, more profile cases. The districts also seem to span the entire country from the Northeast (District of Massachusetts), the Southeast (Southern District of Florida), the Deep South (Southern District of Texas) to the West Coast (Northern District of California). Some of these districts also appear to reside in swing states: Arizona, Colorado, Nevada, Wisconsin, Michigan, North Carolina and Florida.
 
 Q7. Which state had the most approved PPP loans per 100,000 population? [This web page](https://dwillis.github.io/jour472files/ppp_scraping_example/index.html) has links to 52 individual web pages, one for each state (plus Washington, D.C. and Puerto Rico). Each of those web pages contains a one-row html table that has the name of the state, the number of approved loans, and the 2019 population. Here's an example for [Alabama](https://dwillis.github.io/jour472files/ppp_scraping_example/states/alabama.html). You'll need to loop over the individual state urls, scrape each individual page and combine the information on each page into a single dataframe to answer this question. Don't forget to calculation the loans per 100,000.
-A7.
+A7. South Dakota
 ```{r}
 # url
-states_url <- "https://dwillis.github.io/jour472files/ppp_scraping_example/index.html"
+state_url <- "https://dwillis.github.io/jour472files/ppp_scraping_example/index.html"
 
 # read html
-states <- states_url %>% 
-  read_html() %>% 
-  
-state_list <- states_url %>% 
+states_urls <- state_url %>% 
   read_html() %>% 
   html_table
 
-state_list <- state_list[[1]] %>% 
-  clean_names()
+# table 
+states_urls <- states_urls[[1]] 
 
-# number of rows
-for(row_number in 1:nrow(state_list)) {
+# empty dataframe
+states_ppp <- tibble()
+  
+# loop
+for(row_number in 1:nrow(states_urls)) {
 
     # Keep only the row for a given row number, get rid of every other row
-    each_row_df <- state_list %>%
+    each_row_df <- states_urls %>%
       slice(row_number)
     
      # Define url of page to get
     url <- each_row_df$url
     
-    # Define id of table to ingest
-    xpath_state_table <- paste0('//*[@id="',each_row_df$sector_xpath_id,'"]')
+  individual_state <- url %>% 
+    read_html() %>% 
+    html_table()
+  
+  # extract table
+  individual_state <- individual_state[[1]]
+  
+  states_ppp <- states_ppp %>% 
+  bind_rows(individual_state)
 }
+
+# update table per 100000k pop
+states_ppp <- states_ppp %>% 
+  mutate(loans_per_100 = total_ppp_loans/population * 100000) %>% 
+  arrange(desc(loans_per_100))
+
+states_ppp
 ```

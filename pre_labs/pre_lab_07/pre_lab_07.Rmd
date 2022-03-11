@@ -779,7 +779,7 @@ On the Utilities page (sector code 22), the ID for the table we want is "iag22em
 
 ### Task 27: Run code to build id
 **Task** Run the following code to build id. Briefly describe the output that appears below the codeblock.
-**Answer** The ouput includes the usual sector and description columns, also a sector URL column and a sector xpath column.
+**Answer** The output includes the usual sector and description columns, also a sector URL column and a sector xpath column.
 
 ```{r}
 
