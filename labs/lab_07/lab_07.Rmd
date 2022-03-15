@@ -148,7 +148,7 @@ fraud_districts <- fraud_districts %>%
 
 # combine dataframes
 doj_courts_noppp <- district_courts %>% 
-  anti_join(district_courts, fraud_districts, by = c("region" = "fraud_districts)) 
+  anti_join(district_courts, fraud_districts, by = c("region" = "fraud_districts")) 
   
 # percentage = 100 * (31/94)
 ```

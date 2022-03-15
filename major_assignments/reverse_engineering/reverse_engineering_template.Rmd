@@ -103,11 +103,12 @@ cleaned_allegations_data %>%
 
 ### Sentence 4
 
-* **Sentence text**: [Paste in sentence to engineer here]
+* **Sentence text**: “In all, the CCRB substantiated 16 allegations lodged in six complaints, most involving the stops and searches of young men of color. No other high-ranking NYPD officer has amassed as many substantiated CCRB complaints.”
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
 ```{r}
 # Put code to reverse engineer sentence here
+
 
 # Display results of code below this codeblock
 
