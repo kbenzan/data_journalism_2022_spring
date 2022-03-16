@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction 
 
-In this notebook, we are reverse engineering the story, [STORY NAME](STORY URL)
+In this notebook, we are reverse engineering the story, [THE NYPD FILES Over a Dozen Black and Latino Men Accused a Cop of Humiliating, Invasive Strip Searches. The NYPD Kept Promoting Him.](https://www.propublica.org/article/over-a-dozen-black-and-latino-men-accused-a-cop-of-humiliating-invasive-strip-searches-the-nypd-kept-promoting-him)
 
 ## Load libraries
 
@@ -51,7 +51,8 @@ In this notebook, we are reverse engineering five sentences from the story.
 ### Sentence 1
 
 * **Sentence text**: “Eighty-six of the roughly 420 officers in the department who currently hold a rank above captain — running precincts and other large commands and overseeing hundreds of officers — have tallied at least one misconduct allegation that was substantiated by the CCRB, meaning that investigators amassed enough evidence of offenses, ranging from bad language to pistol whippings, to say that they happened and broke patrol guidelines. The most common involved improper property entries and searches.”
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+* **Analysis summary**: 
+We were not able to confirm the first part of the finding, since there are only 81 officers in the data set with a current rank above captain. The data includes only officers with substantiated claims and has three designations for officers above captain, "Chiefs and other ranks," "Deputy Inspector," and "Inspector." The reason we came up short could be because ProPublica "removed a small number of officers (62) against whom the CCRB had substantiated allegations, but whose substantiated allegations had not gone fully through the NYPD’s administrative prosecution process" from the data set. Perhaps the missing 5 officers were a part of the 62 removed from the data. However, we were able to confirm that "Premises entered and/or searched" was the most common allegation among this selection of substantiated claims.
 
 ```{r}
 # Put code to reverse engineer sentence here
@@ -60,7 +61,6 @@ In this notebook, we are reverse engineering five sentences from the story.
 # Claim 1, 86 out of 420 officers ranked above captain with substantiated complaints
 allegations_data %>% 
   filter(rank_now == "Chiefs and other ranks" | rank_now == "Deputy Inspector" | rank_now == "Inspector") %>% 
-  filter(str_detect(board_disposition, "^Subs")) %>% 
   select(unique_mos_id) %>%
   distinct() %>% 
   group_by(unique_mos_id) %>% 
@@ -79,25 +79,54 @@ cleaned_allegations_data %>%
 
 ### Sentence 2
 
-* **Sentence text**: [Paste in sentence to engineer here]
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+* **Sentence text**: "Of at least 77 allegations made against him in 26 separate CCRB complaints, 29 were unsubstantiated; five were “unfounded,” meaning investigators concluded the incident never took place; and 27 were “exonerated,” meaning the conduct fell within patrol guidelines. Investigators have never proved that McCormack strip-searched men in the street, let alone penetrated them with his finger, though the city settled four lawsuits involving strip-search allegations against him for a total $184,500."
+* **Analysis summary**: We could find almost every answer to this paragraph. We believe the data excludes five unfounded complaints made against McCormack, and that's why our total complaint number is only 72. Also, the board_disposition column does not include an option of "unfounded." Otherwise, we gathered everything in the first sentence -- the second sentence was likely pulled from legal documents and figures not in this dataset, as there's no option for "lawsuit" or a number totaling money spent in lawsuits.
 
 ```{r}
 # Put code to reverse engineer sentence here
-
 # Display results of code below this codeblock
+
+mccormack_complaints <- cleaned_allegations_data %>% 
+  filter(unique_mos_id == "18589")
+
+# Of at least 77 allegations
+mccormack_complaints %>% nrow()
+
+# in 26 separate CCRB complaints
+mccormack_complaints %>% 
+  group_by(complaint_id) %>% 
+  summarise(count = n()) %>% 
+  nrow()
+
+# 29 were unsubstantiated
+mccormack_complaints %>% 
+  filter(board_disposition == "Unsubstantiated") %>% 
+  nrow()
+
+# 27 were “exonerated
+mccormack_complaints %>% 
+  filter(board_disposition == "Exonerated") %>% 
+  nrow()
 
 ```
 
 ### Sentence 3
 
-* **Sentence text**: [Paste in sentence to engineer here]
-* **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
+* **Sentence text**: “An overwhelming majority of the city’s 36,000 officers do not have a single substantiated complaint on their records; only 1 in 9 does.”
+* **Analysis summary**: We calculated this ratio with a simple equation after narrowing the dataset down to individual officers. With a clean dataset like this, it was a simple and straightforward process.
 
 ```{r}
 # Put code to reverse engineer sentence here
-
 # Display results of code below this codeblock
+
+# number of officers in the dataset 
+total_officers <- cleaned_allegations_data %>% 
+  group_by(unique_mos_id) %>% 
+  summarise(count = n()) %>% 
+  nrow()
+
+# math 
+total_officers / 36000 * 9
 
 ```
 
@@ -108,9 +137,12 @@ cleaned_allegations_data %>%
 
 ```{r}
 # Put code to reverse engineer sentence here
-
-
 # Display results of code below this codeblock
+
+
+cleaned_allegations_data %>% 
+  filter(complainant_ethnicity == "Black" | complainant_ethnicity == "Hispanic") %>% 
+  filter(allegation == "stop" | allegation == "search") 
 
 ```
 
