@@ -169,7 +169,7 @@ What do the top counties all have in common? Lots of suburban flight from D.C an
 
 ```{r}
 md %>%
-  mutate(NAME = gsub(" County, Maryland", "", NAME)) %>%
+  mutate(NAME = gsub("County, Maryland", "", NAME)) %>%
   ggplot(aes(x = estimate, y = reorder(NAME, estimate))) +
   geom_errorbarh(aes(xmin = estimate - moe, xmax = estimate + moe)) +
   geom_point(color = "red") +
