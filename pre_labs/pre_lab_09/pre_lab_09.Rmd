@@ -279,7 +279,11 @@ ppp_maryland_loans_by_date %>%
     axis.text.x = element_text(angle = 45,  hjust=1)
   )
 
+# lowercase b - abbreviated month
+# uppercase B - full spelled out month
+# Y - full year
 ```
+
 
 Again, this isn't as pretty as we could make it.  But by charting this, we can quickly see a pattern that can help guide our reporting. 
 
