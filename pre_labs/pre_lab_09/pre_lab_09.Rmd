@@ -193,11 +193,13 @@ maryland_ppp_top_counties %>%
   theme_economist() +
   labs(
     title="Maryland Counties with Most PPP Loans",
-    x = "County",
-    y = "Total Loans",
+    x = "County\n",
+    y = "\nTotal Loans",
     caption = "source: SBA PPP loan database"
     
   )
+
+# \n - spacing the x and y axes
 ```
 Viola.  Not super pretty, but good enough to show an editor to help them understand the conclusions you reached with your data analysis. 
 
