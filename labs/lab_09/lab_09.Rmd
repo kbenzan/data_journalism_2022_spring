@@ -17,6 +17,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 **Task** Create a codeblock and load appropriate packages and settings for this lab.
 
+```{r}
+library(tidyverse)
+library(ggthemes)
+library(tidycensus)
+```
+
 ## Questions
 
 **Q1.** Which day in April 2020 saw the most loans approved in West Virginia? 
@@ -34,7 +40,40 @@ Basically, your chart should look like this image, which will appear when you ru
 ```{r}
 knitr::include_graphics(rep("images/chart_1.png"))
 ```
-**A1.** 
+
+```{r}
+# data
+westva_ppp <- read_rds("data/lab_09.rds")
+
+# table
+westva_ppp_april20 <- westva_ppp %>%
+  filter(str_detect(date_approved, "^2020-04")) %>% 
+  group_by(date_approved) %>%
+  summarise(
+    total_loans=n()
+  ) %>% 
+  arrange(desc(total_loans))
+
+# line chart
+westva_ppp_april20 %>%
+  ggplot() + 
+  geom_line(aes(x=date_approved, y=total_loans)) +
+  scale_x_date(date_breaks = "1 day", date_labels = "%b-%d", limits = as.Date(c('2020-04-02', '2020-04-29'))) +
+  theme(
+    axis.text.x = element_text(angle = 45,  hjust=1)
+  ) +
+  labs(
+    title="Days in April 2020 with the Most PPP Loans",
+    x = "Approved Date\n",
+    y = "\nTotal Loans",
+    caption = "source: SBA PPP loan database"
+  ) +
+  geom_point(aes(x=date_approved, y=total_loans)) +
+  geom_text(aes(x=date_approved, y=total_loans, label=total_loans, fontface=2, color='red'))
+
+```
+
+**A1.** April 28
 
 **Q2.** What are the top 10 states that got the most PPP loans per 100,000 people? You MUST do the following things when answering this question:
 
@@ -43,6 +82,55 @@ knitr::include_graphics(rep("images/chart_1.png"))
 * Use the tidycensus API to get a table of total population by state from the American Community Survey (ACS). To do this, you'll use use the alphanumeric variable for total population, which has the following "label" and "concept": "Estimate!!Total:" and "SEX BY AGE".  
 * Use ggplot to make a horizontal bar chart that shows the top 10 states, with the length of the bar determined by the state's total PPP loans per 100,000 people. Give it an appropriate title, source, and x and y axis titles. 
 * Make the bars on the chart blue! I didn't show you how to do this in the prelab, so do some web sleuthing to figure it out.  
+
+```{r}
+# data
+state_ppp_all <- read_csv("data/state_ppp_all.csv")
+
+# census key
+census_api_key("102c0c72d8f8eb880608f9dacb53fdf9100f8ba0", overwrite = TRUE, install = TRUE)
+
+# acs
+acs_2019 <- load_variables(2019, "acs5", cache = TRUE)
+
+usa <- get_acs(geography = "state",
+              variables = c(total_pop = "B01001_001"),
+              year = 2019)
+
+usa <- usa %>% 
+  rename(total_pop = "estimate") 
+
+usa <- usa %>% 
+  rename(state = "NAME")
+
+top_10 <- usa %>% 
+  filter(total_pop > 9000000)
+
+# per 100,000 people
+loans_per_people <- state_ppp_all %>% left_join(usa, by="state")
+
+loans_per_people <- loans_per_people %>% 
+  mutate(
+    per_100000 = total_ppp_loans/100000
+  )
+
+top10_loans_per_people <- loans_per_people %>% 
+  filter(per_100000 > 3)
+
+# bar chart
+top10_loans_per_people %>%
+  ggplot() +
+  geom_bar(aes(x=reorder(state, per_100000), weight=per_100000, stat="identity", fill="lightblue")) +
+  coord_flip() +
+  labs(
+    title="The States with the Most Loans Per 100,000 People",
+    x = "Total Loans Per 100,000 People\n",
+    y = "\nState",
+    caption = "source: SBA PPP loan database & U.S. Census"
+  ) 
+  
+```
+
 
 **A2.** 
 
