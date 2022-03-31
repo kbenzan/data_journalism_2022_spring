@@ -132,7 +132,7 @@ total_officers / 36000 * 9
 
 ### Sentence 4
 
-* **Sentence text**: “In all, the CCRB substantiated 16 allegations lodged in six complaints, most involving the stops and searches of young men of color. No other high-ranking NYPD officer has amassed as many substantiated CCRB complaints.”
+* **Sentence text**: “Data shows that while more than half of officers in the lowest rank are people of color, the higher ranks — above captain — are more than 75% white. A dozen of those high-ranking officers have three or more complaints with substantiated allegations; 10 are white. Five have reached the rank of deputy inspector, the lowest promoted at the commissioner’s discretion; all are white.”
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
 ```{r}
@@ -141,21 +141,26 @@ total_officers / 36000 * 9
 
 
 cleaned_allegations_data %>% 
-  filter(complainant_ethnicity == "Black" | complainant_ethnicity == "Hispanic") %>% 
-  filter(allegation == "stop" | allegation == "search") 
+  filter(rank_now == "Chiefs and other ranks" | rank_now == "Deputy Inspector" | rank_now == "Inspector" & str_detect(board_disposition, "^Subs")) %>% 
+  group_by(unique_mos_id) %>% 
+  summarise(
+    total_complaints = n()
+  ) %>% 
+  arrange(desc(total_complaints)) 
 
 ```
 
 ### Sentence 5
 
-* **Sentence text**: [Paste in sentence to engineer here]
+* **Sentence text**: “In all, the CCRB substantiated 16 allegations lodged in six complaints, most involving the stops and searches of young men of color. No other high-ranking NYPD officer has amassed as many substantiated CCRB complaints.”
 * **Analysis summary**: [Write up two to three sentences describing the results of your analysis.  Were you able to confirm the finding? If not, why not?]
 
 ```{r}
 # Put code to reverse engineer sentence here
-
 # Display results of code below this codeblock
 
+cleaned_allegations_data %>% 
+  filter(str_detect(board_disposition, "^Subs")) 
 ```
 
 -30-
