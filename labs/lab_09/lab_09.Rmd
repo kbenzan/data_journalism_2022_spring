@@ -103,24 +103,22 @@ usa <- usa %>%
 usa <- usa %>% 
   rename(state = "NAME")
 
-top_10 <- usa %>% 
-  filter(total_pop > 9000000)
-
 # per 100,000 people
 loans_per_people <- state_ppp_all %>% left_join(usa, by="state")
 
 loans_per_people <- loans_per_people %>% 
   mutate(
-    per_100000 = total_ppp_loans/100000
+    per_100000 = (total_ppp_loans/total_pop)*100000
   )
 
 top10_loans_per_people <- loans_per_people %>% 
-  filter(per_100000 > 3)
+  head(10)
+
 
 # bar chart
 top10_loans_per_people %>%
   ggplot() +
-  geom_bar(aes(x=reorder(state, per_100000), weight=per_100000, stat="identity", fill="lightblue")) +
+  geom_bar(aes(x=reorder(state, per_100000), weight=per_100000), fill="blue") +
   coord_flip() +
   labs(
     title="The States with the Most Loans Per 100,000 People",
@@ -134,15 +132,15 @@ top10_loans_per_people %>%
 
 **A2.** 
 
-**Q3.**  A scatterplot is a type of chart that helps us see relationships between two variables. One variable goes on the x axis, the other on the y axis.  For each row/observation in our data, a scatterplot puts a circle (or a "point") where the two variables intersect on a grid. 
+**Q3.**  A scatter plot is a type of chart that helps us see relationships between two variables. One variable goes on the x axis, the other on the y axis.  For each row/observation in our data, a scatter plot puts a circle (or a "point") where the two variables intersect on a grid. 
 
-Statisticians use scatterplots to show graphically whether one variable is correlated -- related, in a statistical sense -- with another variable.  A classic example is the [relationship between ice cream sales and temperature](https://www.mathsisfun.com/data/scatter-xy-plots.html).  The scatterplot below (press play to load the image) shows that relationship, that an increase in temperature is associated with an increase in ice cream sales. When it's 12C, sales are 200 dollars, and when it's hotter, 25C, sales are 600 dollars.
+Statisticians use scatter plots to show graphically whether one variable is correlated -- related, in a statistical sense -- with another variable.  A classic example is the [relationship between ice cream sales and temperature](https://www.mathsisfun.com/data/scatter-xy-plots.html).  The scatter plot below (press play to load the image) shows that relationship, that an increase in temperature is associated with an increase in ice cream sales. When it's 12C, sales are 200 dollars, and when it's hotter, 25C, sales are 600 dollars.
 
 ```{r}
 knitr::include_graphics(rep("images/chart_2.png"))
 ```
 
-We're going to use a scatterplot a little differently, to get a visual sense of two key variables: the amount of an approved PPP loan, and the amount that was later forgiven. We'll use it to answer some questions in a broad sense, about loan forgiveness.  This is just a jumping off point for further exploration. 
+We're going to use a scatter plot a little differently, to get a visual sense of two key variables: the amount of an approved PPP loan, and the amount that was later forgiven. We'll use it to answer some questions in a broad sense, about loan forgiveness.  This is just a jumping off point for further exploration. 
 
 Our questions include: Were there a lot of people who had their loans fully forgiven?  Were there a lot of people who didn't have their loans forgiven? Were there a lot of people who had some of the loan forgiven? 
 
@@ -151,8 +149,37 @@ To answer those questions, make a codeblock and do the following:
 1. Start with the a subset of the WV ppp loan data we loaded earlier.
 2. Filter the data to examine only those loans less than $25,000.
 3. There are a bunch of NAs in the forgiveness amount column, for the purposes of this assignment only, let's assume those are actually supposed to be 0. So make all the NAs 0. 
-4. Make a scatterplot. I didn't show you how to do this, so look it up! 
+4. Make a scatter plot. I didn't show you how to do this, so look it up! 
 5. In the answer space below, describe what you see and answer the questions posed above.  In a general sense, what do you think this means?  
+
+```{r}
+# wv
+wv_less_25000 <- westva_ppp %>% 
+  filter(
+    amount < 25000
+  )
+
+wv_less_25000 <- wv_less_25000 %>% 
+  mutate(
+    if_else(
+      forgiveness_amount = NA
+    )
+  )
+
+# scatter plot
+wv_less_25000 %>% 
+  ggplot(aes(x=forgiveness_amount, y=amount)) +
+  geom_point(aes(x=forgiveness_amount, y=amount)) +
+  labs(
+    title="The Relationship between Loaned Amount and Forgiven Amount",
+    x = "Forgiveness Amount\n",
+    y = "\nLoaned Amount",
+    caption = "source: SBA PPP loan database"
+  ) +
+  geom_smooth(method = lm)
+  
+```
+
 
 **A3.**  
 
