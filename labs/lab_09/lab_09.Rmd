@@ -21,6 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggthemes)
 library(tidycensus)
+library(janitor)
 ```
 
 ## Questions
@@ -69,7 +70,7 @@ westva_ppp_april20 %>%
     caption = "source: SBA PPP loan database"
   ) +
   geom_point(aes(x=date_approved, y=total_loans)) +
-  geom_text(aes(x=date_approved, y=total_loans, label=total_loans, fontface=2, color='red'))
+  geom_text(aes(x=date_approved, y=total_loans, label=total_loans), hjust=1, vjust=0)
 
 ```
 
@@ -95,13 +96,20 @@ acs_2019 <- load_variables(2019, "acs5", cache = TRUE)
 
 usa <- get_acs(geography = "state",
               variables = c(total_pop = "B01001_001"),
-              year = 2019)
+              year = 2019) 
 
 usa <- usa %>% 
-  rename(total_pop = "estimate") 
-
+  rename(total_pop = "estimate")  
+  
 usa <- usa %>% 
   rename(state = "NAME")
+
+state_ppp_all <- state_ppp_all %>% 
+  mutate(state = case_when(
+    state == "N Dakota" ~ "North Dakota",
+    state == "S Dakota" ~ "South Dakota",
+    TRUE ~ state
+  ))
 
 # per 100,000 people
 loans_per_people <- state_ppp_all %>% left_join(usa, by="state")
@@ -109,11 +117,11 @@ loans_per_people <- state_ppp_all %>% left_join(usa, by="state")
 loans_per_people <- loans_per_people %>% 
   mutate(
     per_100000 = (total_ppp_loans/total_pop)*100000
-  )
+  ) %>% 
+  arrange(desc(per_100000))
 
 top10_loans_per_people <- loans_per_people %>% 
   head(10)
-
 
 # bar chart
 top10_loans_per_people %>%
@@ -121,7 +129,7 @@ top10_loans_per_people %>%
   geom_bar(aes(x=reorder(state, per_100000), weight=per_100000), fill="blue") +
   coord_flip() +
   labs(
-    title="The States with the Most Loans Per 100,000 People",
+    title="Top 10 States with the Most Loans Per 100,000 People",
     x = "Total Loans Per 100,000 People\n",
     y = "\nState",
     caption = "source: SBA PPP loan database & U.S. Census"
@@ -130,7 +138,7 @@ top10_loans_per_people %>%
 ```
 
 
-**A2.** 
+**A2.** 1. South Dakota 2. North Dakota 3. Nebraska 4. Georgia 5. Iowa 6. Illinois 7. Louisiana 8. Florida 9. Mississippi 10. Montana
 
 **Q3.**  A scatter plot is a type of chart that helps us see relationships between two variables. One variable goes on the x axis, the other on the y axis.  For each row/observation in our data, a scatter plot puts a circle (or a "point") where the two variables intersect on a grid. 
 
@@ -160,28 +168,27 @@ wv_less_25000 <- westva_ppp %>%
   )
 
 wv_less_25000 <- wv_less_25000 %>% 
-  mutate(
-    if_else(
-      forgiveness_amount = NA
+  mutate(forgiveness_amount = case_when(
+      is.na(forgiveness_amount) ~ 0, 
+      TRUE ~ forgiveness_amount
     )
   )
 
 # scatter plot
 wv_less_25000 %>% 
-  ggplot(aes(x=forgiveness_amount, y=amount)) +
-  geom_point(aes(x=forgiveness_amount, y=amount)) +
+  ggplot() +
+  geom_point(aes(x=amount, y=forgiveness_amount)) +
   labs(
-    title="The Relationship between Loaned Amount and Forgiven Amount",
-    x = "Forgiveness Amount\n",
-    y = "\nLoaned Amount",
+    title="The Relationship between Loaned Amount and Forgiveness Amount",
+    x = "Loaned Amount\n",
+    y = "\nForgiveness Amount",
     caption = "source: SBA PPP loan database"
-  ) +
-  geom_smooth(method = lm)
+  ) 
   
 ```
 
 
-**A3.**  
+**A3.** I see a positive relationship between the loaned amount and the forgiveness amount. As the loaned amount increases, the forgiveness amount also increases. This correlation makes sense to me. The federal government handed out PPP loans to retain jobs and boost the economy. It's contradictory if the federal government then turned around and asked for the money back. Thus, the forgiveness amount grows. Also, it makes sense that as the loaned amount grows, the forgiveness amount also grows because there would be no need to forgive a larger amount if it was never loaned in the first place. This correlation means that the loaned money is staying in the business's hands, rather than repaying the lender. The recipients aren't obligated to pay back the loan. 
 
 
 -30-
