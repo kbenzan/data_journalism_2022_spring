@@ -26,6 +26,7 @@ Loading required libraries for this analysis.
 
 ```{r echo=FALSE, message=FALSE}
 library(tidyverse)
+library(janitor)
 ```
 
 ## Load and Cleaning Data
@@ -142,6 +143,7 @@ total_officers / 36000 * 9
 
 cleaned_allegations_data %>% 
   filter(rank_now == "Chiefs and other ranks" | rank_now == "Deputy Inspector" | rank_now == "Inspector" & str_detect(board_disposition, "^Subs")) %>% 
+  distinct(unique_mos_id, complaint_id) %>% 
   group_by(unique_mos_id) %>% 
   summarise(
     total_complaints = n()
