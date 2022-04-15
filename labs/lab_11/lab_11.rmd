@@ -61,6 +61,10 @@ wv_county_population <- get_acs(geography = "county",
               state = "WV",
               geometry = TRUE)
 
+counties <- counties()
+  wv_counties <- counties %>% 
+    filter(STATEFP == "54")
+
 wv_county_population <- wv_county_population %>%
   rename(COUNTY = NAME) %>%
   rename(population = estimate) %>%
@@ -87,19 +91,20 @@ wv_population_mining <- wv_population_mining %>%
   arrange(desc(per_100000))
 
 # map
-write_csv(wv_population_mining, "data/wv_population_mining.csv")
+ggplot() +
+  geom_sf(data=wv_counties) +
+  geom_sf(data=wv_population_mining, aes(fill=per_100000)) +
+  theme_minimal() +
+  scale_fill_viridis_b(option="magma", trans="log")
 
 # table
 view(wv_population_mining)
-  
 ```
 
 **A1.** 
-https://datawrapper.dwcdn.net/1cFJX/1/
-
 Based on the map, central West Virginia got the most loans in this industry. There seems to be a diagonal line through central West Virginia that shows the counties with the most loans.
 
-Based on the table, HARRISON county got the highest total loan amount. total amount per 100K population = $14,607,650.03; total amount of loans (not population adjusted) = $9,919,762.98; number of loans = 59; population = 67908
+Based on the table, RITCHIE county got the highest total loan amount. total amount per 100K population = 77,752,742.79; total amount of loans (not population adjusted) = 7,653,980.00; number of loans = 9; population = 9,844
 
 **Q2.** You want to understand WHY the spatial pattern you saw above exists.  So you grab a shapefile with the latitude and longitude coordinates of every mine permit in West Virginia from the state Department of Environmental Protection.
 
