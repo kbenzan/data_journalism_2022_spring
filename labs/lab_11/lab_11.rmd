@@ -61,17 +61,13 @@ wv_county_population <- get_acs(geography = "county",
               state = "WV",
               geometry = TRUE)
 
-counties <- counties()
-  wv_counties <- counties %>% 
-    filter(STATEFP == "54")
-
 wv_county_population <- wv_county_population %>%
   rename(COUNTY = NAME) %>%
   rename(population = estimate) %>%
   select(COUNTY, population, geometry)
 
 wv_county_population <- wv_county_population %>%
-  mutate(COUNTY = toupper(str_remove_all(COUNTY,", WEST VIRGINIA"))) %>%
+  mutate(COUNTY = toupper(str_remove_all(COUNTY,", WEST VIRGINIA|COUNTY"))) %>%
   mutate(COUNTY = str_trim(COUNTY,side="both")) %>% 
   select(COUNTY, population, geometry)
 
@@ -88,11 +84,11 @@ wv_population_mining <- wv_county_population %>% inner_join(amount_per_county, b
 wv_population_mining <- wv_population_mining %>%  
   mutate(
     per_100000 = (total_amount/population)*100000) %>% 
+  mutate(per_100000 = replace_na(per_100000,0)) %>% 
   arrange(desc(per_100000))
 
 # map
 ggplot() +
-  geom_sf(data=wv_counties) +
   geom_sf(data=wv_population_mining, aes(fill=per_100000)) +
   theme_minimal() +
   scale_fill_viridis_b(option="magma", trans="log")
