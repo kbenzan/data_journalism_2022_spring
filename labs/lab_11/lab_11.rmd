@@ -68,8 +68,7 @@ wv_county_population <- wv_county_population %>%
 
 wv_county_population <- wv_county_population %>%
   mutate(COUNTY = toupper(str_remove_all(COUNTY,", WEST VIRGINIA|COUNTY"))) %>%
-  mutate(COUNTY = str_trim(COUNTY,side="both")) %>% 
-  select(COUNTY, population, geometry)
+  mutate(COUNTY = str_trim(COUNTY,side="both")) 
 
 amount_per_county <- mining_industry %>% 
   group_by(project_county_name) %>% 
@@ -79,12 +78,12 @@ amount_per_county <- mining_industry %>%
   ) %>% 
   arrange(desc(total_amount))
 
-wv_population_mining <- wv_county_population %>% inner_join(amount_per_county, by=c("COUNTY" = "project_county_name")) %>% select(COUNTY, population, geometry, total_amount, total_number)
+wv_population_mining <- wv_county_population %>% left_join(amount_per_county, by=c("COUNTY" = "project_county_name")) %>% select(COUNTY, population, geometry, total_amount, total_number)
   
 wv_population_mining <- wv_population_mining %>%  
   mutate(
-    per_100000 = (total_amount/population)*100000) %>% 
-  mutate(per_100000 = replace_na(per_100000,0)) %>% 
+    per_100000 = (total_amount/population)*100000) %>%
+  mutate(per_100000 = replace_na(per_100000,0)) %>%
   arrange(desc(per_100000))
 
 # map
@@ -94,11 +93,13 @@ ggplot() +
   scale_fill_viridis_b(option="magma", trans="log")
 
 # table
-view(wv_population_mining)
+wv_population_mining %>%
+  as_tibble() %>%
+  arrange(desc(per_100000))
 ```
 
 **A1.** 
-Based on the map, central West Virginia got the most loans in this industry. There seems to be a diagonal line through central West Virginia that shows the counties with the most loans.
+Based on the map, central West Virginia got the most loans in this industry. There seems to be a bunch in northern West Virginia and another in southern West Virginia. 
 
 Based on the table, RITCHIE county got the highest total loan amount. total amount per 100K population = 77,752,742.79; total amount of loans (not population adjusted) = 7,653,980.00; number of loans = 9; population = 9,844
 
@@ -116,18 +117,42 @@ What spatial pattern do you see? How does it compare to the spatial pattern in t
 
 ```{r}
 # coordinates
-coordinates <- st_read()
+coordinates <- st_read("https://tagis.dep.wv.gov/arcgis/rest/services/WVDEP_enterprise/mining_reclamation/MapServer/0/query?where=1%3D1&outFields=*&geometry=&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outSR=4326&f=json")
 
-mining_industry %>% 
-  
+library(lubridate)
+
+# expire date
+after_sept <- coordinates %>%
+  mutate(expiredate = ymd(expiredate)) %>% 
+  filter(expiredate > "2021-09-01")
+
+counties <- counties()
+
+wv_counties <- counties %>% 
+  filter(STATEFP == "54")
+
+# map
+ggplot() + 
+  geom_sf(data=wv_counties) + 
+  geom_sf(data=after_sept) +
+  theme_minimal()
 ```
 
 
-**A2.**
+**A2.** 
+I see a similar pattern as above. Two bunches appear again - one in northern/central West Virginia and another in southern West Virginia.
 
 **Q3.** To confirm the spatial comparison you identified in question 2, let's create a new map that layers the mine location points on top of our PPP choropleth map we created in question 1. What do you notice about the number of mines in the county that has the highest total loan amount per 100K?
 
+```{r}
+ggplot() +
+  geom_sf(data=wv_population_mining, aes(fill=per_100000)) +
+  geom_sf(data=after_sept) +
+  theme_minimal() +
+  scale_fill_viridis_b(option="magma", trans="log")
+```
 **A3.**
+The county with the highest total loan amount per 100k doesn't have a mine within its borders. Although, one mine does border the boundaries.
 
 **Q4.** Starting from the original WV ppp dataframe, examine the loans to companies in "Mining, Quarrying, and Oil and Gas Extraction" in the county with the highest total loan amount per 100K (you can use the table you created in question 1 to identify the top county).
 
@@ -136,5 +161,15 @@ mining_industry %>%
 * How many jobs did they save, according to the data?
 * What's your hypothesis for why a company in their specific industry would need to seek a PPP loan during the pandemic?
 
+```{r}
+ritchie_loans <- mining_industry %>% 
+  filter(project_county_name == "RITCHIE")
+```
+
+
 **A4.**
+HALL DRILLING, LLC accounts for the biggest chunk of the total loan amount.
+They are a part of the Drilling Oil and Gas Wells industry. They provide trucking, drilling, production installation, construction and roustabout services.
+387 jobs saved.
+This company would need to seek a PPP loan because companies paused companies to preserve cash. Also, due to the lack of travel and commuting, the need for road cleaning or plowing services dropped significantly. Then, drilling could have stopped altogether due to the possible high risk of contracting covid-19 on an oil rig.
 -30-
