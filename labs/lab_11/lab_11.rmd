@@ -50,7 +50,56 @@ Then answer these questions:
 * Based on the map, what region of the state appears to have gotten more loans in this industry? What geographic pattern do you notice in the data?
 * Based on the table, what county got the highest total loan amount? What was the total amount per 100K population, the total amount of loans (not population adjusted), how many loans were there, and what's the population?
 
-**A1.**
+```{r}
+# mining industry 
+mining_industry <- wv_ppp_loans %>% 
+  filter(str_detect(naics_code, "^21"))
+
+# per 100,000 population
+wv_county_population <- get_acs(geography = "county", 
+              variables = c(population = "B01001_001"), 
+              state = "WV",
+              geometry = TRUE)
+
+wv_county_population <- wv_county_population %>%
+  rename(COUNTY = NAME) %>%
+  rename(population = estimate) %>%
+  select(COUNTY, population, geometry)
+
+wv_county_population <- wv_county_population %>%
+  mutate(COUNTY = toupper(str_remove_all(COUNTY,", WEST VIRGINIA"))) %>%
+  mutate(COUNTY = str_trim(COUNTY,side="both")) %>% 
+  select(COUNTY, population, geometry)
+
+amount_per_county <- mining_industry %>% 
+  group_by(project_county_name) %>% 
+  summarise(
+    total_amount = sum(amount), 
+    total_number = n()
+  ) %>% 
+  arrange(desc(total_amount))
+
+wv_population_mining <- wv_county_population %>% inner_join(amount_per_county, by=c("COUNTY" = "project_county_name")) %>% select(COUNTY, population, geometry, total_amount, total_number)
+  
+wv_population_mining <- wv_population_mining %>%  
+  mutate(
+    per_100000 = (total_amount/population)*100000) %>% 
+  arrange(desc(per_100000))
+
+# map
+write_csv(wv_population_mining, "data/wv_population_mining.csv")
+
+# table
+view(wv_population_mining)
+  
+```
+
+**A1.** 
+https://datawrapper.dwcdn.net/1cFJX/1/
+
+Based on the map, central West Virginia got the most loans in this industry. There seems to be a diagonal line through central West Virginia that shows 
+
+Based on the table, HARRISON county got the highest total loan amount. total amount per 100K population = $14,607,650.03; total amount of loans (not population adjusted) = $9,919,762.98; number of loans = 59; population = 67908
 
 **Q2.** You want to understand WHY the spatial pattern you saw above exists.  So you grab a shapefile with the latitude and longitude coordinates of every mine permit in West Virginia from the state Department of Environmental Protection.
 
