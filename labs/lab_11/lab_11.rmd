@@ -97,7 +97,7 @@ view(wv_population_mining)
 **A1.** 
 https://datawrapper.dwcdn.net/1cFJX/1/
 
-Based on the map, central West Virginia got the most loans in this industry. There seems to be a diagonal line through central West Virginia that shows 
+Based on the map, central West Virginia got the most loans in this industry. There seems to be a diagonal line through central West Virginia that shows the counties with the most loans.
 
 Based on the table, HARRISON county got the highest total loan amount. total amount per 100K population = $14,607,650.03; total amount of loans (not population adjusted) = $9,919,762.98; number of loans = 59; population = 67908
 
@@ -112,6 +112,15 @@ This data includes both currently operating mines and old ones that have closed.
 Make a map with a point for each one of these mine permits and put a blank map with the outline of West Virginia counties (which you can get from Tigris) behind it.
 
 What spatial pattern do you see? How does it compare to the spatial pattern in the first map you made?
+
+```{r}
+# coordinates
+coordinates <- st_read()
+
+mining_industry %>% 
+  
+```
+
 
 **A2.**
 
