@@ -109,6 +109,7 @@ They don't seem to pertain to any county (or no county), and it's not clear what
 ```{r}
 county_vaccinations_by_date <- county_vaccinations_by_date %>%
   filter(!is.na(county))
+# exclamation point --> do the opposite --> so IS NOT n/a
 
 # what does county represent, if there are NA values?
 # didn't report that information? people who don't live in MD?
@@ -239,7 +240,7 @@ sub
 
 ### Task 13: Produce a description for your bar chart based on the variables in Task 11
 **Task** Run the following code and put the value of `sub` in the answer.
-**Answer** "The number of people in Prince George's who got fully vaccinated on March 6 decreased by -73.77 percent compared to the week before"
+**Answer** Sub didn't change - "The number of people in Prince George's who got fully vaccinated on March 6 decreased by -73.77 percent compared to the week before"
 
 Now we can add that to our labels.
 
