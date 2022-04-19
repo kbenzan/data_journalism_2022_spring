@@ -109,6 +109,11 @@ They don't seem to pertain to any county (or no county), and it's not clear what
 ```{r}
 county_vaccinations_by_date <- county_vaccinations_by_date %>%
   filter(!is.na(county))
+
+# what does county represent, if there are NA values?
+# didn't report that information? people who don't live in MD?
+# don't know what NA means 
+# 1/8/21 -- 8,000 in a day ... not super plausible
 ```
 
 Now we can start to interview this data.
