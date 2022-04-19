@@ -71,6 +71,9 @@ Each row represents vaccination stats for a single county on a single day, inclu
 ```{r}
 county_vaccinations_by_date <- county_vaccinations_by_date %>%
   mutate(vaccination_date = date(mdy_hms(vaccination_date)))
+
+# the date function extracts only the date from mdy_hms
+# mdy_hms = month day year _ hour minute second
 ```
 
 ### Task 4: Count the number of rows for each county
