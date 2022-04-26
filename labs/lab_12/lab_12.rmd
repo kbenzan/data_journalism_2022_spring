@@ -62,20 +62,13 @@ wvu_campus_incidents <- wvu_campus_incidents %>%
   mutate(day_of_week = wday(date))
 
 # most recent 
-latest_date <- ranked %>% slice(1)
+latest_date <- wvu_campus_incidents %>% slice(1)
 
-most_recent <- wvu_campus_incidents %>% 
-  arrange(desc(date))
+previous_30 <- wvu_campus_incidents %>% 
+  filter(date >= latest_date$date - 30 & title == latest_date$title)
+  count = count(previous_30)
 
-suspicious_event <- most_recent %>% 
-  filter(title == "SUSPICIOUS EVENT") %>% 
-  filter(date > "2022-03-21") %>% 
-  group_by(title) %>% 
-  summarise(
-    count = n()
-  )
-
-incidents_previous_30 <- paste("Since", format(most_recent$date, format="%B %d"), "when the most recent incident", format(most_recent$title), direction, "happened,"  " incidents of that kind have occurred in the previous 30 days", sep="")
+incidents_previous_30 <- paste("Since ", format(latest_date$date), " there have been ", count, " ", latest_date$title, sep="")
 ```
 
 **Q2.** Maryland produces a [CSV file](https://raw.githubusercontent.com/state-of-maryland/VaccineCSVs/master/Vax_ZIP_CODE_FirstSecondSingle_Totals_Raw.csv) showing the total number of vaccinations by zip code and -- interestingly -- it includes non-Maryland zip codes (as well as some zip codes that seem to be bad data). write a script that reads the CSV file, making the columns more readable and adding today's date. Then output the top 25 Maryland zip codes and top 25 non-Maryland zip codes based on number of people fully vaccinated, and write both dataframes out to CSV files, using the following name formats:
