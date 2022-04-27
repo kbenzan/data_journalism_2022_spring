@@ -90,7 +90,9 @@ To do that, you will need to:
 
 Google the top 2-3 zip codes from both Maryland and non-Maryland results and describe them in your answer.
 
-**A2.**
+**A2.** Top 3 zip codes from Maryland by the number of people fully vaccinated are 20906, 20878 and 20874. All three zip codes are located within Montgomery county. These three zip codes are mostly made up of white and Hispanic people. This correlation between race and high rates of fully vaccinated people makes sense due to the historic lack of trust in the federal government/the Department of Health by African Americans. The median household incomes across the zip codes varies. In 20906 the median household income is $78,611, and in 20878 the median household income is $98,007, Then, 20874 records a median household income of $116,347. The populations across the three zip codes are similar - about 65,000 residents.
+
+The top 3 non-Maryland zip codes are 20011, 20002 and 20009. These three zip codes with the largest number of people fully vaccinated are located in Washington, D.C. These zip codes contain about the same population - around 50,000 residents. Zip codes 20002 and 20011 have more women than men with 52% and 53% female respectively. But, 20009 has 51% male population. Again both 20002 and 20011 zip codes record a majority African American population, approximately 60%. Contrarily, 20009 zip code is mostly white - about 60% of the population. Altogether, these three zip codes have less people fully vaccinated than the top Maryland zip code. The difference in populations (65,000 residents vs. 50,000 residents) does not explain the sharp drop in fully vaccinations.
 
 ```{r}
 # data
@@ -99,13 +101,16 @@ total_vacs_by_zip <- read_csv("https://raw.githubusercontent.com/state-of-maryla
   filter(str_length(ZIP_CODE) == 5)
 
 maryland_zips_yyymmdd <- total_vacs_by_zip %>% 
-  filter(str_detect(ZIP_CODE, "^24"))
+  filter(ZIP_CODE > 20601 & ZIP_CODE < 21930)
 
 non_maryland_zips_yyyymmdd <- total_vacs_by_zip %>% 
-  filter(!str_detect(ZIP_CODE, "^24"))
+  filter(ZIP_CODE < 20601 | ZIP_CODE > 21930)
 
 # today's date
 current <- maryland_zips_yyymmdd %>% summarize(max(date))
+marylandcurrent <- maryland %>% filter(date == current[[1]]) %>% rename(GEOID = fips)
+counties <- st_read("data/cb_2018_us_county_5m/cb_2018_us_county_5m.shp")
+counties <- counties %>% left_join(marylandcurrent)
 ```
 
 **Q3.** Maryland has had one of the more successful vaccination rates, but you want to understand where a significant portion of the population remains less than fully vaccinated. Make a dataframe of all Maryland zip codes from the vaccination data you used in Q2 and join it to Maryland zip code population data from the Census API. Calculate the percentage of fully vaccinated for each zip code and then make a map showing the zip codes with less than 50 percent fully vaccinated. Put a blank map with the outline of Maryland counties (which you can get from Tigris) behind it for context. Add a label to the map describing what the data is and include the date from the vaccination data (programmatically, so you can run it every day).
@@ -131,4 +136,11 @@ maryland_zips_yyymmdd <- maryland_zips_yyymmdd %>%
 
 # join
 md_zips_vacs <- md_county_population %>% left_join(maryland_zips_yyymmdd, by="ZIP_CODE")
+
+# map
+ggplot() +
+  geom_sf(data=md_zips_vacs, aes(fill=cases)) +
+  scale_fill_viridis_c(option = "plasma", trans = "sqrt") +
+  theme_void() +
+  labs(title = paste("People Fully Vaccinated as of ", current[[1]], sep=""))
 ```
