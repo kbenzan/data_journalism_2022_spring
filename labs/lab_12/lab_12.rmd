@@ -100,17 +100,16 @@ total_vacs_by_zip <- read_csv("https://raw.githubusercontent.com/state-of-maryla
   filter(!is.na(FullyVaccinated)) %>% 
   filter(str_length(ZIP_CODE) == 5)
 
-maryland_zips_yyymmdd <- total_vacs_by_zip %>% 
-  filter(ZIP_CODE > 20601 & ZIP_CODE < 21930)
+maryland_zips_20220427 <- total_vacs_by_zip %>% 
+  filter(ZIP_CODE > 20601 & ZIP_CODE < 21930) %>% 
+  mutate(date=today())
 
-non_maryland_zips_yyyymmdd <- total_vacs_by_zip %>% 
-  filter(ZIP_CODE < 20601 | ZIP_CODE > 21930)
+non_maryland_zips_20220427 <- total_vacs_by_zip %>% 
+  filter(ZIP_CODE < 20601 | ZIP_CODE > 21930) %>% 
+  mutate(date=today())
 
-# today's date
-current <- maryland_zips_yyymmdd %>% summarize(max(date))
-marylandcurrent <- maryland %>% filter(date == current[[1]]) %>% rename(GEOID = fips)
-counties <- st_read("data/cb_2018_us_county_5m/cb_2018_us_county_5m.shp")
-counties <- counties %>% left_join(marylandcurrent)
+write_csv(maryland_zips_20220427, "maryland_zips_20220427.csv")
+write_csv(non_maryland_zips_20220427, "non_maryland_zips_20220427.csv")
 ```
 
 **Q3.** Maryland has had one of the more successful vaccination rates, but you want to understand where a significant portion of the population remains less than fully vaccinated. Make a dataframe of all Maryland zip codes from the vaccination data you used in Q2 and join it to Maryland zip code population data from the Census API. Calculate the percentage of fully vaccinated for each zip code and then make a map showing the zip codes with less than 50 percent fully vaccinated. Put a blank map with the outline of Maryland counties (which you can get from Tigris) behind it for context. Add a label to the map describing what the data is and include the date from the vaccination data (programmatically, so you can run it every day).
@@ -129,13 +128,16 @@ md_county_population <- get_acs(geography = "county",
               geometry = TRUE)
 
 md_county_population <- md_county_population %>% 
-  rename(ZIP_CODE = GEOID) 
+  rename(ZIP_CODE = GEOID)
 
-maryland_zips_yyymmdd <- maryland_zips_yyymmdd %>% 
-  mutate(across(ZIP_CODE, as.character))
+md_county_population <- md_county_population %>%
+  mutate(ZIP_CODE = as.character(ZIP_CODE))
+
+maryland_zips_20220427 <- maryland_zips_20220427 %>% 
+  mutate(ZIP_CODE = as.character(ZIP_CODE))
 
 # join
-md_zips_vacs <- md_county_population %>% left_join(maryland_zips_yyymmdd, by="ZIP_CODE")
+md_zips_vacs <- maryland_zips_20220427 %>% left_join(md_county_population)
 
 # map
 ggplot() +
