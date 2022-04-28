@@ -29,6 +29,7 @@ library(janitor)
 library(lubridate)
 library(ggrepel)
 library(sf)
+library(tigris)
 
 # census key
 census_api_key("549950d36c22ff16455fe196bbbd01d63cfbe6cf")
@@ -122,27 +123,34 @@ Describe the output of the map below, and say what you think the most interestin
 
 ```{r}
 # population data
-md_county_population <- get_acs(geography = "county", 
+md_zip_population <- get_acs(geography = "zip code tabulation area", 
               variables = c(population = "B01001_001"), 
               state = "MD",
               geometry = TRUE)
 
-md_county_population <- md_county_population %>% 
-  rename(ZIP_CODE = GEOID)
-
-md_county_population <- md_county_population %>%
+md_zip_population <- md_zip_population %>% 
+  rename(ZIP_CODE = GEOID) %>% 
   mutate(ZIP_CODE = as.character(ZIP_CODE))
 
 maryland_zips_20220427 <- maryland_zips_20220427 %>% 
   mutate(ZIP_CODE = as.character(ZIP_CODE))
 
 # join
-md_zips_vacs <- maryland_zips_20220427 %>% left_join(md_county_population)
+md_zips_vacs <- maryland_zips_20220427 %>% left_join(md_zip_population)
+
+# less than 50%
+md_zips_vacs <- md_zips_vacs %>% 
+  mutate(less_than_half = 100*(FullyVaccinated/estimate))
+
+less_than_half_fv <- md_zips_vacs %>% 
+  filter(less_than_half < 50)
 
 # map
+zctas <- zctas()
+mdzctas <- zctas("MD")
+
 ggplot() +
-  geom_sf(data=md_zips_vacs, aes(fill=cases)) +
-  scale_fill_viridis_c(option = "plasma", trans = "sqrt") +
-  theme_void() +
-  labs(title = paste("People Fully Vaccinated as of ", current[[1]], sep=""))
+  geom_sf(data=mdzctas) +
+  geom_sf(data=less_than_half_fv, aes(fill=less_than_half)) +
+  theme_minimal() 
 ```
