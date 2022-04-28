@@ -99,15 +99,19 @@ The top 3 non-Maryland zip codes are 20011, 20002 and 20009. These three zip cod
 # data
 total_vacs_by_zip <- read_csv("https://raw.githubusercontent.com/state-of-maryland/VaccineCSVs/master/Vax_ZIP_CODE_FirstSecondSingle_Totals_Raw.csv") %>% 
   filter(!is.na(FullyVaccinated)) %>% 
-  filter(str_length(ZIP_CODE) == 5)
+  filter(str_length(ZIP_CODE) == 5) %>% 
 
 maryland_zips_20220427 <- total_vacs_by_zip %>% 
   filter(ZIP_CODE > 20601 & ZIP_CODE < 21930) %>% 
-  mutate(date=today())
+  mutate(date=today()) %>%
+  arrange(desc(FullyVaccinated)) %>% 
+  head(25)
 
 non_maryland_zips_20220427 <- total_vacs_by_zip %>% 
   filter(ZIP_CODE < 20601 | ZIP_CODE > 21930) %>% 
-  mutate(date=today())
+  mutate(date=today()) %>% 
+  arrange(desc(FullyVaccinated)) %>% 
+  head(25)
 
 write_csv(maryland_zips_20220427, "maryland_zips_20220427.csv")
 write_csv(non_maryland_zips_20220427, "non_maryland_zips_20220427.csv")
@@ -119,7 +123,7 @@ You WILL need to ensure that the columns you use to join the two dataframes are 
 
 Describe the output of the map below, and say what you think the most interesting areas are.
 
-**A3.**
+**A3.** The most populated counties - Montgomery, Prince George's and Baltimore - seem to have reached the 50% threshold, whereas the outskirts of Maryland hasn't. This is interesting because the outskirts are probably the least populated. In particular, western Maryland and coastal eastern Maryland haven't crossed the 50% threshold. 
 
 ```{r}
 # population data
@@ -146,12 +150,13 @@ less_than_half_fv <- md_zips_vacs %>%
   filter(less_than_half < 50)
 
 # map
-zctas <- zctas()
-mdzctas <- zctas() %>% 
+counties <- counties()
+md_counties <- counties %>% 
   filter(STATEFP == "24")
 
 ggplot() +
-  geom_sf(data=mdzctas) +
+  geom_sf(data=md_counties) +
   geom_sf(data=less_than_half_fv, aes(fill=less_than_half)) +
-  theme_minimal() 
+  theme_minimal() +
+  ggtitle("Maryland zip codes with under 50% of the population fully vaccinated as of April 27, 2022")
 ```
